@@ -1,11 +1,21 @@
-import Background from '@/components/svg/background'
+'use client'
+import Modal from '@/components/Modal'
+import {useState} from 'react'
+import io from 'socket.io-client'
+
+const socket = io('http://localhost:4000')
 
 export const Home = () => {
+  const [openModal, setOpenModal] = useState(false)
+
   return (
     <main className="flex flex-col items-center justify-center h-screen min-h-screen overflow-hidden text-gray-200 bg-gradient-to-b from-slate-900 via-purple-900 to-slate-900">
-      <div className="relative flex flex-col items-center justify-center w-full h-full bg-black/40">
+      <div className="relative flex flex-col items-center justify-center w-full h-full bg-black/50">
         <h1 className="text-5xl font-bold text-gray-100">
-          Welcome to <span className="text-purple-700">Pair Programming</span>
+          Welcome to{' '}
+          <span className="text-purple-600 drop-shadow-title">
+            Pair Programming
+          </span>
         </h1>
         <h4 className="w-4/5 pt-4 text-lg font-semibold text-center ">
           Necesitas ayuda para resolver algoritmos? Invita a un companero para
@@ -15,13 +25,16 @@ export const Home = () => {
           Crea una sala, mandale invitacion y a resolver!
         </h4>
         <div className="flex flex-row">
-          <button className="px-4 py-2 mr-3 font-bold border-2 border-purple-700 rounded-md bg-black/50">
-            Create Room
+          <button className="px-4 py-2 mr-3 font-bold border-2 border-purple-700 rounded-md bg-black/50 hover:bg-purple-900 hover:border-white/50">
+            Create room
           </button>
-          <button className="px-4 py-2 font-bold border-2 border-purple-700 rounded-md bg-black/50">
-            Log In
+          <button className="px-4 py-2 font-bold duration-300 border-2 border-purple-700 rounded-md bg-black/50 hover:bg-purple-900 hover:border-white/50">
+            Join a room
           </button>
-          <Background />
+          <button className="btn" onClick={() => setOpenModal(true)}>
+            open modal
+          </button>
+          {/* <Modal /> */}
         </div>
       </div>
     </main>
