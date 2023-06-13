@@ -34,8 +34,8 @@ export const Home = () => {
           <button className="btn" onClick={() => setOpenModal(true)}>
             open modal
           </button>
-          {/* <Modal /> */}
         </div>
+        <Modal />
       </div>
     </main>
   )
