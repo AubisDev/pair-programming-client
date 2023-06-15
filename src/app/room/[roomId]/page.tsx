@@ -9,11 +9,11 @@ import TextSection from './components/TextSection'
 
 const Room = () => {
   return (
-    <div className="flex flex-row h-screen">
+    <div className="flex flex-row h-screen overflow-hidden">
       <ResizableContainer>
         <CodeEditor />
       </ResizableContainer>
-      <div className="flex flex-col  h-full min-w-[400px] w-auto">
+      <div className="flex flex-col w-full h-full min-w-[400px]">
         {/* <Whiteboard /> */}
         <TextSection />
         <div className="h-1/2">chatWTe</div>d
