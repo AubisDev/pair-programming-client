@@ -13,6 +13,9 @@ export const socketHandler = (socket: Socket) => {
     socket.emit('leave-room', {userName, roomId})
   }
 
+  const sendMessage = (message: string, roomId: string) => {
+    socket.emit('send-message', {message, roomId})
+  }
   return {
     createRoom,
     joinRoom,

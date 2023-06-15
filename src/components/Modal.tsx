@@ -6,9 +6,16 @@ const socket = io('http://localhost:4000')
 interface ModalProps {
   setOpenModal: (openModal: boolean) => void
   loading: boolean
+  setRoomToJoin: (roomToJoin: string) => void
+  roomToJoin: string
 }
 
-const Modal = ({setOpenModal, loading}: ModalProps) => {
+const Modal = ({
+  setOpenModal,
+  loading,
+  setRoomToJoin,
+  roomToJoin,
+}: ModalProps) => {
   const handleCloseModal = (
     event: MouseEvent<HTMLDivElement, globalThis.MouseEvent>,
   ) => {
@@ -46,6 +53,8 @@ const Modal = ({setOpenModal, loading}: ModalProps) => {
                   type="text"
                   placeholder="Type Room ID here"
                   className="w-full max-w-xs text-white input input-bordered"
+                  onChange={e => setRoomToJoin(e.target.value)}
+                  value={roomToJoin}
                 />
                 <button
                   type="submit"

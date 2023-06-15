@@ -4,33 +4,42 @@ import {useEffect, useState} from 'react'
 import io from 'socket.io-client'
 import {socketHandler} from './utils/socket'
 import {useRouter} from 'next/navigation'
+import useStore from './store/slices/store'
+import {randomUUID} from 'crypto'
 
-const socket = io('http://localhost:4000')
+// const socket = io('http://localhost:4000')
 export const Home = () => {
   const router = useRouter()
   const [openModal, setOpenModal] = useState(false)
   const [loading, setLoading] = useState(false)
-  // const [socket, setSocket] = useState<Socket>()
+  const [roomToJoin, setRoomToJoin] = useState('')
+  const setSocket = useStore(state => state.setSocket)
+  const socket = useStore(state => state.socket)
 
-  // useEffect(() => {
-  //   const socket = io('http://localhost:4000')
-  //   setSocket(socket)
-
-  //   return () => {
-  //     socket.disconnect()
-  //   }
-  // }, [])
+  useEffect(() => {
+    const socket = io('http://localhost:4000')
+    setSocket(socket)
+  }, [])
 
   const handleCreateRoom = () => {
-    const socketActions = socketHandler(socket)
-    socketActions.createRoom('user' + socket.id)
-    setOpenModal(true)
-    setLoading(true)
-    setTimeout(() => {
-      router.push(`/room/${socket.id}`)
-      setLoading(false)
-      setOpenModal(false)
-    }, 3000)
+    if (socket) {
+      const socketActions = socketHandler(socket)
+      socketActions.createRoom('user' + socket.id)
+      setOpenModal(true)
+      setLoading(true)
+      setTimeout(() => {
+        router.push(`/room/${socket.id}`)
+        setLoading(false)
+        setOpenModal(false)
+      }, 3000)
+    }
+  }
+
+  const handleJoinRoom = () => {
+    if (socket) {
+      const socketActions = socketHandler(socket)
+      socketActions.joinRoom(`user${socket.id}`, roomToJoin)
+    }
   }
 
   return (
@@ -64,7 +73,12 @@ export const Home = () => {
           </button>
         </div>
         {openModal ? (
-          <Modal setOpenModal={setOpenModal} loading={loading} />
+          <Modal
+            setOpenModal={setOpenModal}
+            loading={loading}
+            setRoomToJoin={setRoomToJoin}
+            roomToJoin={roomToJoin}
+          />
         ) : null}
       </div>
     </main>
