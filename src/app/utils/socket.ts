@@ -15,5 +15,7 @@ export const socketHandler = (socket: Socket) => {
 
   return {
     createRoom,
+    joinRoom,
+    leaveRoom,
   }
 }
