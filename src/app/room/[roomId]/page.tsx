@@ -3,7 +3,7 @@ import {FormEvent, useEffect, useState} from 'react'
 import CodeEditor from './components/CodeEditor'
 import ResizableContainer from './components/ResizableContainer'
 import TextSection from './components/TextSection'
-import Chat from './components/Chat'
+import Chat from './components/Chat/Chat'
 import {useParams, useRouter} from 'next/navigation'
 import {Role, User} from '@/models/user.model'
 import {Socket, io} from 'socket.io-client'
@@ -15,21 +15,28 @@ export const socket: Socket<DefaultEventsMap, DefaultEventsMap> = io(
 
 export interface Message {
   text: string
-  date: any
-  user: string
+  time: string
+  username: string
+}
+
+const messageInitialState = {
+  text: '',
+  time: '',
+  username: 'username',
 }
 
 const Room = () => {
   const [users, setUsers] = useState<User[]>([])
-  const [message, setMessage] = useState<string>('')
-  const [messages, setMessages] = useState<string[]>([])
-  const [username, setUsername] = useState<string>('')
+  const [message, setMessage] = useState<Message>(messageInitialState)
+  const [messages, setMessages] = useState<Message[]>([])
   const params = useParams()
 
   useEffect(() => {
+    socket.emit('join-room', {username: message.username, room: params.roomId})
+
     socket.on('connect', () => {
       console.log('connect')
-      socket.emit('userName', username)
+      socket.emit('userName', message.username)
     })
 
     socket.on('users', users => {
@@ -38,14 +45,13 @@ const Room = () => {
     })
 
     //Message from server
-    socket.on('message', message => {
+    socket.on('message', (message: Message) => {
       console.log(message)
       setMessages(prevMessages => [...prevMessages, message])
       let messagesContainer = document.getElementById('chat-messages')
       if (messagesContainer) {
         messagesContainer.scrollTop = messagesContainer.scrollHeight
       }
-      // setMessages(messages => [...messages, message])
     })
 
     socket.on('connected', user => {
@@ -63,8 +69,9 @@ const Room = () => {
 
   const sendMessage = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    socket.emit('send-message', message)
-    setMessage('')
+    socket.emit('send-message', message.text)
+    console.log(message)
+    setMessage(messageInitialState)
   }
 
   //Message for DOM
