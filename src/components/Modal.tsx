@@ -1,4 +1,4 @@
-import {MouseEvent} from 'react'
+import {MouseEvent, useState} from 'react'
 import io from 'socket.io-client'
 
 const socket = io('http://localhost:4000')
@@ -6,16 +6,10 @@ const socket = io('http://localhost:4000')
 interface ModalProps {
   setOpenModal: (openModal: boolean) => void
   loading: boolean
-  setRoomToJoin: (roomToJoin: string) => void
-  roomToJoin: string
+  handleJoinRoom: (roomId: string) => void
 }
 
-const Modal = ({
-  setOpenModal,
-  loading,
-  setRoomToJoin,
-  roomToJoin,
-}: ModalProps) => {
+const Modal = ({setOpenModal, loading, handleJoinRoom}: ModalProps) => {
   const handleCloseModal = (
     event: MouseEvent<HTMLDivElement, globalThis.MouseEvent>,
   ) => {
@@ -23,6 +17,7 @@ const Modal = ({
     console.log(target.id === 'modal-container')
     if (target.id === 'modal-container') setOpenModal(false)
   }
+  const [roomToJoin, setRoomToJoin] = useState('')
 
   return (
     <div
@@ -42,6 +37,7 @@ const Modal = ({
         <form
           id="modal"
           className=" z-[100] w-[500px] h-[250px] border-purple-600 border-2 duration-300 bg-purple-900 flex  rounded-lg items-center flex-col relative"
+          onSubmit={e => handleJoinRoom(roomToJoin)}
         >
           <div className="flex flex-row items-center justify-center w-full max-w-xs h-3/4 form-control">
             <div className="flex flex-col">
@@ -56,10 +52,7 @@ const Modal = ({
                   onChange={e => setRoomToJoin(e.target.value)}
                   value={roomToJoin}
                 />
-                <button
-                  type="submit"
-                  className="px-6 py-2 ml-3 text-white duration-300 bg-gray-900 rounded-lg hover:bg-gray-950 "
-                >
+                <button className="px-6 py-2 ml-3 text-white duration-300 bg-gray-900 rounded-lg hover:bg-gray-950 ">
                   Join
                 </button>
               </div>

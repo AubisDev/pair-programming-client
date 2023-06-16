@@ -1,11 +1,12 @@
 export type User = {
-  userName: string
+  username: string
   userID: string
-  rol: Rol
+  role: Role
 }
 
-export enum Rol {
+export enum Role {
   roomCreator = 'room creator',
   invited = 'user invited',
   moderator = 'moderator',
+  NA = 'Not assigned',
 }

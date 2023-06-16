@@ -1,6 +1,19 @@
-import {Socket} from 'socket.io-client'
+import {Socket, io} from 'socket.io-client'
+import {DefaultEventsMap} from 'socket.io/dist/typed-events'
 
-export const socketHandler = (socket: Socket) => {
+interface Message {
+  message: string
+  roomId: string
+  // userName: string
+}
+
+export const socket: Socket<DefaultEventsMap, DefaultEventsMap> = io(
+  'http://localhost:4000',
+)
+
+export const socketHandler = (
+  socket: Socket<DefaultEventsMap, DefaultEventsMap>,
+) => {
   const createRoom = (userName: string) => {
     socket.emit('create-room', userName)
   }
@@ -13,12 +26,14 @@ export const socketHandler = (socket: Socket) => {
     socket.emit('leave-room', {userName, roomId})
   }
 
-  const sendMessage = (message: string, roomId: string) => {
-    socket.emit('send-message', {message, roomId})
+  const sendMessage = (data: Message) => {
+    socket.emit('message', data)
   }
+
   return {
     createRoom,
     joinRoom,
     leaveRoom,
+    sendMessage,
   }
 }
