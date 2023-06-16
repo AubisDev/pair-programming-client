@@ -8,6 +8,7 @@ import {useParams, useRouter} from 'next/navigation'
 import {Role, User} from '@/models/user.model'
 import {Socket, io} from 'socket.io-client'
 import {DefaultEventsMap} from 'socket.io/dist/typed-events'
+import userStore from '@/app/store/store'
 
 export const socket: Socket<DefaultEventsMap, DefaultEventsMap> = io(
   'http://localhost:4000',
@@ -19,14 +20,14 @@ export interface Message {
   username: string
 }
 
-const messageInitialState = {
-  text: '',
-  time: '',
-  username: 'username',
-}
-
 const Room = () => {
   const [users, setUsers] = useState<User[]>([])
+  const username = userStore(state => state.username)
+  const messageInitialState = {
+    text: '',
+    time: '',
+    username,
+  }
   const [message, setMessage] = useState<Message>(messageInitialState)
   const [messages, setMessages] = useState<Message[]>([])
   const params = useParams()
@@ -49,7 +50,7 @@ const Room = () => {
     //join chatroom
     socket.on('connect', () => {
       console.log('connect')
-      socket.emit('userName', message.username)
+      socket.emit('userName', username)
     })
 
     socket.on('users', users => {
@@ -83,7 +84,6 @@ const Room = () => {
   const sendMessage = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     socket.emit('send-message', message.text)
-    console.log(message)
     setMessage(messageInitialState)
   }
 

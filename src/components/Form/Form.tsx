@@ -4,6 +4,8 @@ import Label from './Label/Label'
 import userStore from '@/app/store/store'
 import {modalInitialState} from '@/app/page'
 import Button from '../ActionsButtons/Button/Button'
+import {useRouter} from 'next/navigation'
+import {socket} from '@/app/utils/socket'
 
 interface Props {
   openModal: {
@@ -22,9 +24,24 @@ interface Props {
 }
 
 const Form = ({openModal, setLoading, setOpenModal}: Props) => {
+  const route = useRouter()
   const [roomToJoin, setRoomToJoin] = useState<string>('')
   const [newUsername, setNewUsername] = useState<string>('')
   const setUsername = userStore(state => state.setUsername)
+
+  const handleClick = () => {
+    setLoading(true)
+    setUsername(newUsername)
+    setTimeout(() => {
+      setLoading(false)
+      setOpenModal(modalInitialState)
+      if (openModal.joinRoom) joinRoom()
+      else createRoom()
+    }, 3000)
+  }
+
+  const joinRoom = () => route.push(`/room/${roomToJoin}`)
+  const createRoom = () => route.push(`/room/${socket.id}`)
 
   return (
     <form
@@ -38,8 +55,8 @@ const Form = ({openModal, setLoading, setOpenModal}: Props) => {
             <Label inputLabel="Username" />
             <Input
               label="username"
-              value={roomToJoin}
-              modifier={setRoomToJoin}
+              value={newUsername}
+              modifier={setNewUsername}
             />
           </div>
           {openModal.joinRoom ? (
@@ -53,7 +70,7 @@ const Form = ({openModal, setLoading, setOpenModal}: Props) => {
       <div className="absolute flex flex-row items-center w-4/5 px-12 py-2 rounded-lg justify-evenly bottom-3 ">
         <Button
           text={`${openModal.joinRoom ? 'Join' : 'Create'}`}
-          action={() => setOpenModal(modalInitialState)}
+          action={() => handleClick()}
         />
         <Button text="Cancel" action={() => setOpenModal(modalInitialState)} />
       </div>
