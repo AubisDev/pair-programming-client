@@ -30,10 +30,23 @@ const Room = () => {
   const [message, setMessage] = useState<Message>(messageInitialState)
   const [messages, setMessages] = useState<Message[]>([])
   const params = useParams()
+  const route = useRouter()
 
   useEffect(() => {
+    //join chatroom
     socket.emit('join-room', {username: message.username, room: params.roomId})
 
+    //get room and users
+    socket.on('room-users', ({room, users}) => {
+      setUsers(users)
+      console.log(users)
+    })
+
+    socket.on('room-is-full', userId => {
+      route.push('/', {replace: true})
+    })
+
+    //join chatroom
     socket.on('connect', () => {
       console.log('connect')
       socket.emit('userName', message.username)
