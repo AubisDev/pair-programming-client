@@ -29,7 +29,7 @@ const Form = ({openModal, setLoading, setOpenModal}: Props) => {
   return (
     <form
       id="modal"
-      className=" z-[100] w-[500px] h-[250px] border-purple-600 border-2 duration-300 bg-gray-900 flex  rounded-lg items-center flex-col relative"
+      className=" z-[100] w-[500px] h-[250px] border-purple-600 border-2 duration-300 bg-gradient-to-r from-gray-900 to-purple-950   flex  rounded-lg items-center flex-col relative"
       // onSubmit={e => handleJoinRoom(roomToJoin)}
     >
       <div className="flex flex-col items-center justify-center w-full max-w-xs h-3/4 form-control">
@@ -50,7 +50,7 @@ const Form = ({openModal, setLoading, setOpenModal}: Props) => {
           ) : null}
         </div>
       </div>
-      <div className="absolute flex flex-row items-center w-4/5 px-8 py-2 bg-gray-900 rounded-lg justify-evenly bottom-3 ">
+      <div className="absolute flex flex-row items-center w-4/5 px-12 py-2 rounded-lg justify-evenly bottom-3 ">
         <Button
           text={`${openModal.joinRoom ? 'Join' : 'Create'}`}
           action={() => setOpenModal(modalInitialState)}
