@@ -47,6 +47,18 @@ const Room = () => {
   }
 
   useEffect(() => {
+    document.addEventListener('keydown', function (event) {
+      if (event.ctrlKey && event.key === 's') {
+        event.preventDefault()
+        socket.emit('update-editor', {
+          room: params.roomId,
+          content: editorContent,
+        })
+      }
+    })
+  }, [editorContent, params.roomId])
+
+  useEffect(() => {
     //join chatroom
     socket.emit('join-room', {username: message.username, room: params.roomId})
 
