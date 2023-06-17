@@ -8,12 +8,13 @@ import {useParams, useRouter} from 'next/navigation'
 import {Role, User} from '@/models/user.model'
 import {Socket, io} from 'socket.io-client'
 import {DefaultEventsMap} from 'socket.io/dist/typed-events'
-import userStore from '@/app/store/store'
+import {userStore, editorStore} from '@/app/store/store'
 import {randomID} from '@/app/utils/username'
+import {socket} from '@/app/utils/socket'
 
-export const socket: Socket<DefaultEventsMap, DefaultEventsMap> = io(
-  'http://localhost:4000',
-)
+// export const socket: Socket<DefaultEventsMap, DefaultEventsMap> = io(
+//   'http://localhost:4000',
+// )
 
 export interface Message {
   text: string
@@ -23,8 +24,11 @@ export interface Message {
 
 const Room = () => {
   const [users, setUsers] = useState<User[]>([])
-  const setUsername = userStore(state => state.setUsername)
+  const [text, setText] = useState('')
+  const content = editorStore(state => state.editorContent)
+  const [editorContent, setEditorContent] = useState(content)
   const username = userStore(state => state.username)
+  const setContent = editorStore(state => state.setEditorContent)
   const messageInitialState = {
     text: '',
     time: '',
@@ -33,6 +37,14 @@ const Room = () => {
   const [message, setMessage] = useState<Message>(messageInitialState)
   const [messages, setMessages] = useState<Message[]>([])
   const params = useParams()
+
+  const onSaveClick = () => {
+    console.log('pressed save')
+    socket.emit('update-editor', {
+      room: params.roomId,
+      content: editorContent,
+    })
+  }
 
   useEffect(() => {
     //join chatroom
@@ -57,7 +69,6 @@ const Room = () => {
 
     //Message from server
     socket.on('message', (message: Message) => {
-      console.log(message)
       setMessages(prevMessages => [...prevMessages, message])
       let messagesContainer = document.getElementById('chat-messages')
       if (messagesContainer) {
@@ -71,10 +82,19 @@ const Room = () => {
     })
 
     socket.on('disconnected', id => {
-      console.log('connected')
       setUsers(users => {
         return users.filter(user => user.userID !== id)
       })
+    })
+
+    socket.on('client-editor', newEditorContent => {
+      console.log(newEditorContent)
+      setContent(newEditorContent)
+    })
+
+    socket.on('textarea', newText => {
+      console.log('after: ' + newText)
+      setText(newText)
     })
   }, [])
 
@@ -84,16 +104,19 @@ const Room = () => {
     setMessage(messageInitialState)
   }
 
-  //Message for DOM
-
   return (
     <div className="flex flex-row h-screen overflow-hidden">
       <ResizableContainer>
-        <CodeEditor />
+        <CodeEditor
+          content={content}
+          onSaveClick={onSaveClick}
+          editorContent={editorContent}
+          setEditorContent={setEditorContent}
+        />
       </ResizableContainer>
       <div className="flex flex-col w-full h-full min-w-[400px] overflow-hidden">
         {/* <Whiteboard /> */}
-        <TextSection />
+        <TextSection text={text} setText={setText} />
         <Chat
           message={message}
           setMessage={setMessage}

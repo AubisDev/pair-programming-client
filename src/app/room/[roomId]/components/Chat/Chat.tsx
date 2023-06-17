@@ -18,6 +18,7 @@ const Chat = ({messages, sendMessage, message, setMessage}: Props) => {
     prevState.text = e.target.value
     setMessage(prevState)
   }
+
   return (
     <div className="w-full px-2 overflow-hidden h-1/2">
       <p>Messages</p>

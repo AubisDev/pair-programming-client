@@ -7,8 +7,14 @@ export interface UserState {
   username: string
   setUsername: (user: string) => void
 }
+export interface EditorState {
+  editorContent: string | undefined
+  room: string
+  setEditorContent: (editorContent: string | undefined) => void
+  setRoom: (room: string) => void
+}
 
-const userStore = create<UserState>()(
+export const userStore = create<UserState>()(
   persist(
     set => ({
       username: '',
@@ -20,4 +26,10 @@ const userStore = create<UserState>()(
   ),
 )
 
-export default userStore
+export const editorStore = create<EditorState>()(set => ({
+  room: '',
+  editorContent: '',
+  setEditorContent: (newContent: string | undefined) =>
+    set(() => ({editorContent: newContent})),
+  setRoom: (room: string) => set(() => ({room: room})),
+}))
