@@ -9,6 +9,7 @@ import {Role, User} from '@/models/user.model'
 import {Socket, io} from 'socket.io-client'
 import {DefaultEventsMap} from 'socket.io/dist/typed-events'
 import userStore from '@/app/store/store'
+import {randomID} from '@/app/utils/username'
 
 export const socket: Socket<DefaultEventsMap, DefaultEventsMap> = io(
   'http://localhost:4000',
@@ -22,16 +23,16 @@ export interface Message {
 
 const Room = () => {
   const [users, setUsers] = useState<User[]>([])
+  const setUsername = userStore(state => state.setUsername)
   const username = userStore(state => state.username)
   const messageInitialState = {
     text: '',
     time: '',
-    username,
+    username: username.length !== 0 ? username : `User-${randomID()}`,
   }
   const [message, setMessage] = useState<Message>(messageInitialState)
   const [messages, setMessages] = useState<Message[]>([])
   const params = useParams()
-  const route = useRouter()
 
   useEffect(() => {
     //join chatroom
@@ -41,10 +42,6 @@ const Room = () => {
     socket.on('room-users', ({room, users}) => {
       setUsers(users)
       console.log(users)
-    })
-
-    socket.on('room-is-full', userId => {
-      route.push('/', {replace: true})
     })
 
     //join chatroom
