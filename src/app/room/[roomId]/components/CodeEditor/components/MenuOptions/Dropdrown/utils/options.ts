@@ -1,18 +1,13 @@
-enum Theme {
-  'vs-dark' = 'VS Dark',
-  'hc-black' = ' HC Black',
-  'vs-light' = 'VS Light',
+export enum Theme {
+  dark = 'vs-dark',
+  light = 'light',
 }
 
-enum Language {
-  'javascript' = 'Javascript',
-  'typescript' = 'Typescript',
+export enum Language {
+  javascript = 'javascript',
+  typescript = 'typescript',
 }
 
-export const themeOptions = [
-  Theme['vs-dark'],
-  Theme['hc-black'],
-  Theme['vs-light'],
-]
+export const themeOptions = [Theme.dark, Theme.light]
 
 export const languageOptions = [Language.javascript, Language.typescript]

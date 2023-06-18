@@ -1,6 +1,5 @@
 'use client'
 import {FormEvent, useEffect, useState} from 'react'
-import CodeEditor from './components/CodeEditor/CodeEditor'
 import ResizableContainer from './components/ResizableContainer'
 import TextSection from './components/TextSection'
 import Chat from './components/Chat/Chat'
@@ -11,6 +10,7 @@ import {DefaultEventsMap} from 'socket.io/dist/typed-events'
 import {userStore, editorStore} from '@/app/store/store'
 import {randomID} from '@/app/utils/username'
 import {socket} from '@/app/utils/socket'
+import CodeEditor from './components/CodeEditor/CodeEditor'
 
 // export const socket: Socket<DefaultEventsMap, DefaultEventsMap> = io(
 //   'http://localhost:4000',
