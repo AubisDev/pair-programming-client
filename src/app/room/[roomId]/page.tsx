@@ -1,6 +1,6 @@
 'use client'
 import {FormEvent, useEffect, useState} from 'react'
-import CodeEditor from './components/CodeEditor'
+import CodeEditor from './components/CodeEditor/CodeEditor'
 import ResizableContainer from './components/ResizableContainer'
 import TextSection from './components/TextSection'
 import Chat from './components/Chat/Chat'
@@ -39,7 +39,6 @@ const Room = () => {
   const params = useParams()
 
   const onSaveClick = () => {
-    console.log('pressed save')
     socket.emit('update-editor', {
       room: params.roomId,
       content: editorContent,

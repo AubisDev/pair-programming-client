@@ -1,7 +1,7 @@
 import {Dispatch, SetStateAction, useState} from 'react'
 import Input from './Input/Input'
 import Label from './Label/Label'
-import userStore from '@/app/store/store'
+import {userStore} from '@/app/store/store'
 import {modalInitialState} from '@/app/page'
 import Button from '../ActionsButtons/Button/Button'
 import {useRouter} from 'next/navigation'

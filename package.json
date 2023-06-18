@@ -18,6 +18,8 @@
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.5",
     "monaco-editor": "^0.39.0",
+    "monaco-editor-core": "^0.39.0",
+    "monaco-languageclient": "^6.2.0",
     "next": "13.4.5",
     "postcss": "8.4.24",
     "prop-types": "^15.5.4",
@@ -35,6 +37,7 @@
   "devDependencies": {
     "@types/react-resizable": "^3.0.4",
     "@types/uuid": "^9.0.2",
-    "daisyui": "^3.1.0"
+    "daisyui": "^3.1.0",
+    "monaco-editor-webpack-plugin": "^7.0.1"
   }
 }
