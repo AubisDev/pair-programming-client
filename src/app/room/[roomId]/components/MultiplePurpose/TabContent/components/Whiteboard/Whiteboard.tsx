@@ -1,10 +1,15 @@
 import {ReactPainter} from 'react-painter'
 import {LineCapType, LineJoinType} from 'react-painter/dist/ReactPainter'
 import ResetIcon from './components/ResetIcon'
-import {useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 
 const Whiteboard = () => {
-  const [canvasRef, setCanvasRef] = useState<HTMLCanvasElement | null>(null)
+  const handleReset = () => {
+    document
+      .getElementsByTagName('canvas')[0]
+      ?.getContext('2d')
+      ?.clearRect(0, 0, 500, 300)
+  }
 
   return (
     <div className="w-full h-full ">
@@ -36,7 +41,7 @@ const Whiteboard = () => {
                 <input
                   type="color"
                   onChange={e => setColor(e.target.value)}
-                  className="input input-bordered input-sm w-12  outline-none border-none bg-transparent "
+                  className="input input-bordered input-sm w-12 h-7  outline-none border-none bg-transparent "
                 />
               </div>
 
@@ -67,14 +72,17 @@ const Whiteboard = () => {
                 </select>
               </div>
               <button
-                // onClick={resetCanvas}
+                onClick={handleReset}
                 className="flex flex-row items-center btn btn-sm text-white"
               >
                 Reset <ResetIcon />
               </button>
             </div>
 
-            <div id="canvas" className="bg-[#eee] overflow-hidden ">
+            <div
+              id="canvasContainer"
+              className="bg-[#eee] overflow-hidden w-3/4 h-3/4 mt-6 rounded-lg"
+            >
               {canvas}
             </div>
           </div>
