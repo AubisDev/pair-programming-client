@@ -1,7 +1,6 @@
 import {ReactPainter} from 'react-painter'
 import {LineCapType, LineJoinType} from 'react-painter/dist/ReactPainter'
 import ResetIcon from './components/ResetIcon'
-import {useEffect, useRef, useState} from 'react'
 
 const Whiteboard = () => {
   const handleReset = () => {
@@ -10,19 +9,17 @@ const Whiteboard = () => {
     canvas
       ?.getContext('2d')
       ?.clearRect(0, 0, canvas?.width as number, canvas?.height as number)
-
-    console.log(canvas)
   }
 
   return (
-    <div className="w-full h-full ">
+    <div className="w-full max-h-[90%] h-[90%] p-2 ">
       <ReactPainter
-        width={500}
-        height={300}
+        width={1000}
+        height={1000}
         onSave={blob => console.log(blob)}
         render={({canvas, setColor, setLineWidth, setLineJoin, setLineCap}) => (
-          <div className="w-full h-full flex flex-row justify-evenly ">
-            <div className="flex flex-col h-full justify-center py-4 items-center gap-y-4 -mt-4">
+          <div className="w-full h-full flex flex-row justify-evenly overflow-hidden ">
+            <div className="flex flex-col h-full justify-center px-2 items-center gap-y-2 ">
               <div className="flex flex-row items-center">
                 <label className="label">
                   <span className="label-text">Line Width</span>
@@ -84,7 +81,7 @@ const Whiteboard = () => {
 
             <div
               id="canvasContainer"
-              className="bg-[#eee] overflow-hidden w-3/4 h-3/4 mt-6 rounded-lg"
+              className="bg-[#eee] overflow-hidden w-4/5 h-full rounded-lg "
             >
               {canvas}
             </div>
