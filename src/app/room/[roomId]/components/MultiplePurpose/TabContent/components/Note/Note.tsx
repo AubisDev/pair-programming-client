@@ -21,7 +21,7 @@ const Note = () => {
       ░▄██▄░░░░░▀▀▀▄▄▄▄▀▀░░░░░░░░░█░░░░░░░▀▀█▄
       ░░▀▀▀▀░░░░░░░░░░░░░░░░░░░░░░█▄▄▄▄▄▄▄▄▄██
       ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
-      className="w-full h-auto bg-gray-900 min-h-[289px] max-h-[289px]  border-gray-300/20  p-2 text-gray-200 focus:outline-none overflow-y-scroll overflow-x-hidden border-b-gray-300 heading-7"
+      className="w-full h-auto bg-gray-900 min-h-[289px] max-h-[88%]  border-gray-300/20  p-2 text-gray-200 focus:outline-none overflow-y-scroll overflow-x-hidden border-b-gray-300 heading-7"
     />
   )
 }
