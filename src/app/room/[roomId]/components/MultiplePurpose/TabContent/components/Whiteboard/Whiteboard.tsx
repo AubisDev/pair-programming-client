@@ -5,10 +5,13 @@ import {useEffect, useRef, useState} from 'react'
 
 const Whiteboard = () => {
   const handleReset = () => {
-    document
-      .getElementsByTagName('canvas')[0]
+    const canvas = document.getElementById('canvasContainer')
+      ?.children[0] as HTMLCanvasElement
+    canvas
       ?.getContext('2d')
-      ?.clearRect(0, 0, 500, 300)
+      ?.clearRect(0, 0, canvas?.width as number, canvas?.height as number)
+
+    console.log(canvas)
   }
 
   return (
