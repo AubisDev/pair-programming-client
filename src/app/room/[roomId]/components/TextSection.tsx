@@ -21,7 +21,7 @@ const TextSection = ({text, setText}: Props) => {
         onChange={event => handleChange(event)}
         value={text}
         placeholder="Write any exercise, tip, cases or anything you need in here. The main idea of the code which must be in here always on sight"
-        className="w-full h-full bg-gray-700 min-h-[200px] max-h-[50vh] border-2 border-gray-300/20 rounded-md p-2 text-gray-200 focus:outline-none "
+        className="w-full h-full bg-gray-700 min-h-[200px] max-h-full  border-gray-300/20 rounded-md p-2 text-gray-200 focus:outline-none "
       />
     </div>
   )

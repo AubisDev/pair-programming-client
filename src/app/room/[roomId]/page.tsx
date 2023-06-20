@@ -11,6 +11,7 @@ import {userStore, editorStore} from '@/app/store/store'
 import {randomID} from '@/app/utils/username'
 import {socket} from '@/app/utils/socket'
 import CodeEditor from './components/CodeEditor/CodeEditor'
+import MultiplePurpose from './components/MultiplePurpose/MultiplePurpose'
 
 // export const socket: Socket<DefaultEventsMap, DefaultEventsMap> = io(
 //   'http://localhost:4000',
@@ -126,8 +127,7 @@ const Room = () => {
         />
       </ResizableContainer>
       <div className="flex flex-col w-full h-full min-w-[400px] overflow-hidden">
-        {/* <Whiteboard /> */}
-        <TextSection text={text} setText={setText} />
+        <MultiplePurpose />
         <Chat
           message={message}
           setMessage={setMessage}
