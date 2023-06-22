@@ -1,39 +1,11 @@
 'use client'
-import EditorLoader from '../EditorLoader'
-import {Dispatch, SetStateAction, useContext, useEffect, useState} from 'react'
-import {socket} from '@/app/utils/socket'
-import {useParams} from 'next/navigation'
-import MenuOption from './components/MenuOptions/MenuOption'
-import EditorConfigProvider, {
-  EditorConfigContextType,
-  EditorContext,
-} from './context/editorContext'
+import {useEffect, useState} from 'react'
+import MenuOption from './other/MenuOptions/MenuOption'
+import EditorConfigProvider from './context/editorContext'
 import EditorComponent from './EditorComponent'
 import useKeyPress from './hooks/useKeyPress'
-import {languageOptions} from './utils/constants'
-import {
-  Language,
-  Theme,
-  themeOptions,
-} from './components/MenuOptions/Dropdrown/utils/options'
 
-interface Props {
-  content: string | undefined
-  editorContent: string | undefined
-  setEditorContent: Dispatch<SetStateAction<string | undefined>>
-  onSaveClick: () => void
-  onRunCode: () => void
-}
-
-const defaultValue = '// Your code here!'
-
-const CodeEditor = ({
-  editorContent,
-  setEditorContent,
-  onSaveClick,
-  content,
-  onRunCode,
-}: Props) => {
+const CodeEditor = () => {
   const [customInput, setCustomInput] = useState('')
   const [outputDetails, setOutputDetails] = useState(null)
   const [processing, setProcessing] = useState(null)
@@ -50,7 +22,15 @@ const CodeEditor = ({
   }, [ctrlPress, enterPress])
 
   const handleCompile = () => {
-    // We will come to the implementation later in the code
+    // try {
+    //   setRunOutput(editorContent as string)
+    // } catch (error: any) {
+    //   let message
+    //   if ((error as Error) instanceof Error) message = error.message
+    //   else message = String(error)
+    //   // we'll proceed, but let's report it
+    //   reportError({message})
+    // }
   }
 
   const checkStatus = async (token: any) => {
@@ -74,7 +54,7 @@ const CodeEditor = ({
         pauseOnHover
       /> */}
 
-      <MenuOption onRunCode={onRunCode} />
+      <MenuOption handleCompile={handleCompile} />
       <EditorComponent />
     </EditorConfigProvider>
   )

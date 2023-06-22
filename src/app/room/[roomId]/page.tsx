@@ -48,18 +48,6 @@ const Room = () => {
     })
   }
 
-  const onRunCode = () => {
-    try {
-      setRunOutput(editorContent as string)
-    } catch (error: any) {
-      let message
-      if ((error as Error) instanceof Error) message = error.message
-      else message = String(error)
-      // we'll proceed, but let's report it
-      reportError({message})
-    }
-  }
-
   useEffect(() => {
     document.addEventListener('keydown', function (event) {
       if (event.ctrlKey && event.key === 's') {
@@ -133,13 +121,7 @@ const Room = () => {
   return (
     <div className="flex flex-row h-screen overflow-hidden">
       <ResizableContainer>
-        <CodeEditor
-          content={content}
-          onSaveClick={onSaveClick}
-          editorContent={editorContent}
-          setEditorContent={setEditorContent}
-          onRunCode={onRunCode}
-        />
+        <CodeEditor />
       </ResizableContainer>
       <div className="flex flex-col w-full h-full min-w-[400px] overflow-hidden">
         <MultiplePurpose runOutput={runOutput} editorContent={editorContent} />
