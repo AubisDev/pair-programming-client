@@ -34,18 +34,12 @@ const CodeEditor = ({
   content,
   onRunCode,
 }: Props) => {
-  const [code, setCode] = useState<string | undefined>('')
   const [customInput, setCustomInput] = useState('')
   const [outputDetails, setOutputDetails] = useState(null)
   const [processing, setProcessing] = useState(null)
 
   const enterPress = useKeyPress('Enter')
   const ctrlPress = useKeyPress('Control')
-  const params = useParams()
-
-  // const handleChange = (e: string | undefined) => {
-  //   setEditorContent(e)
-  // }
 
   useEffect(() => {
     if (enterPress && ctrlPress) {
@@ -54,18 +48,6 @@ const CodeEditor = ({
       handleCompile()
     }
   }, [ctrlPress, enterPress])
-
-  const handleChange = (action: any, data: any) => {
-    switch (action) {
-      case 'code': {
-        setCode(data)
-        break
-      }
-      default: {
-        console.warn('case not handled!', action, data)
-      }
-    }
-  }
 
   const handleCompile = () => {
     // We will come to the implementation later in the code
@@ -93,7 +75,7 @@ const CodeEditor = ({
       /> */}
 
       <MenuOption onRunCode={onRunCode} />
-      <EditorComponent handleChange={handleChange} code={code} />
+      <EditorComponent />
     </EditorConfigProvider>
   )
 }

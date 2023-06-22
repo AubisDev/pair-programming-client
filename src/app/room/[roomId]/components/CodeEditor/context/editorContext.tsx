@@ -23,6 +23,8 @@ export interface EditorConfigContextType {
   setLanguage: Dispatch<SetStateAction<Language>>
   languageOptions: Language[]
   themeOptions: Theme[]
+  roomCode: string | undefined
+  setRoomCode: Dispatch<SetStateAction<string | undefined>>
 }
 
 export const EditorContext = createContext<EditorConfigContextType | null>(null)
@@ -30,6 +32,7 @@ export const EditorContext = createContext<EditorConfigContextType | null>(null)
 const EditorConfigProvider = ({children}: PropsWithChildren) => {
   const [theme, setTheme] = useState(themeOptions[0])
   const [language, setLanguage] = useState(languageOptions[0])
+  const [roomCode, setRoomCode] = useState<string | undefined>('')
 
   return (
     <EditorContext.Provider
@@ -40,6 +43,8 @@ const EditorConfigProvider = ({children}: PropsWithChildren) => {
         setLanguage,
         languageOptions,
         themeOptions,
+        roomCode,
+        setRoomCode,
       }}
     >
       {children}

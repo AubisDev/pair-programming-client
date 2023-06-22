@@ -2,20 +2,28 @@ import {useContext, useState} from 'react'
 import EditorLoader from '../EditorLoader'
 import {EditorContext, EditorConfigContextType} from './context/editorContext'
 import Editor from '@monaco-editor/react'
-interface Props {
-  code: string | undefined
-  handleChange: (action: any, data: any) => void
-}
 
-const EditorComponent = ({code, handleChange}: Props) => {
-  const [value, setValue] = useState<string | undefined>(code || '')
-  const {language, theme} = useContext(EditorContext) as EditorConfigContextType
-
-  console.log({language, theme})
+const EditorComponent = () => {
+  const {language, theme, roomCode, setRoomCode} = useContext(
+    EditorContext,
+  ) as EditorConfigContextType
+  const [value, setValue] = useState<string | undefined>(roomCode || '')
 
   const handleEditorChange = (value: string | undefined) => {
     setValue(value)
     handleChange('code', value)
+  }
+
+  const handleChange = (action: any, data: any) => {
+    switch (action) {
+      case 'code': {
+        setRoomCode(data)
+        break
+      }
+      default: {
+        console.warn('case not handled!', action, data)
+      }
+    }
   }
 
   return (
