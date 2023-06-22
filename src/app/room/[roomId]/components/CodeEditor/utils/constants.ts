@@ -1,13 +1,4 @@
-export type Theme = string
-
-export type Language = {
-  id: number
-  name: string
-  label: string
-  value: string
-}
-
-export const languageOptions: Language[] = [
+export const languageOptions = [
   {
     id: 63,
     name: 'JavaScript (Node.js 12.14.0)',
@@ -287,5 +278,3 @@ export const languageOptions: Language[] = [
     value: 'vbnet',
   },
 ]
-
-export const themeOptions: Theme[] = ['vs-dark', 'light']

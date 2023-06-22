@@ -3,15 +3,17 @@ import {Note, ConsoleOutput, Whiteboard, Testing} from './components'
 
 interface Props {
   currentSection: TabSection
+  runOutput: string
+  editorContent: string | undefined
 }
 
-const TabContent = ({currentSection}: Props) => {
+const TabContent = ({currentSection, runOutput, editorContent}: Props) => {
   return (
     <>
       {currentSection === TabSection.note ? (
         <Note></Note>
       ) : currentSection === TabSection.console ? (
-        <ConsoleOutput />
+        <ConsoleOutput runOutput={runOutput} editorContent={editorContent} />
       ) : currentSection === TabSection.whiteboard ? (
         <Whiteboard />
       ) : (

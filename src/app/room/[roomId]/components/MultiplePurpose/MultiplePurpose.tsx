@@ -10,7 +10,12 @@ export enum TabSection {
   testing,
 }
 
-const MultiplePurpose = () => {
+interface Props {
+  runOutput: string
+  editorContent: string | undefined
+}
+
+const MultiplePurpose = ({runOutput, editorContent}: Props) => {
   const [currentSection, setCurrentSection] = useState<TabSection>(
     TabSection.note,
   )
@@ -20,7 +25,11 @@ const MultiplePurpose = () => {
         currentSection={currentSection}
         setCurrentSection={setCurrentSection}
       />
-      <TabContent currentSection={currentSection} />
+      <TabContent
+        currentSection={currentSection}
+        runOutput={runOutput}
+        editorContent={editorContent}
+      />
     </Layout>
   )
 }

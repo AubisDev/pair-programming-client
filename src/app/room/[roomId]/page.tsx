@@ -12,6 +12,7 @@ import {randomID} from '@/app/utils/username'
 import {socket} from '@/app/utils/socket'
 import CodeEditor from './components/CodeEditor/CodeEditor'
 import MultiplePurpose from './components/MultiplePurpose/MultiplePurpose'
+import Error from 'next/error'
 
 // export const socket: Socket<DefaultEventsMap, DefaultEventsMap> = io(
 //   'http://localhost:4000',
@@ -28,6 +29,7 @@ const Room = () => {
   const [text, setText] = useState('')
   const content = editorStore(state => state.editorContent)
   const [editorContent, setEditorContent] = useState(content)
+  const [runOutput, setRunOutput] = useState('')
   const username = userStore(state => state.username)
   const setContent = editorStore(state => state.setEditorContent)
   const messageInitialState = {
@@ -44,6 +46,18 @@ const Room = () => {
       room: params.roomId,
       content: editorContent,
     })
+  }
+
+  const onRunCode = () => {
+    try {
+      setRunOutput(editorContent as string)
+    } catch (error: any) {
+      let message
+      if ((error as Error) instanceof Error) message = error.message
+      else message = String(error)
+      // we'll proceed, but let's report it
+      reportError({message})
+    }
   }
 
   useEffect(() => {
@@ -124,10 +138,11 @@ const Room = () => {
           onSaveClick={onSaveClick}
           editorContent={editorContent}
           setEditorContent={setEditorContent}
+          onRunCode={onRunCode}
         />
       </ResizableContainer>
       <div className="flex flex-col w-full h-full min-w-[400px] overflow-hidden">
-        <MultiplePurpose />
+        <MultiplePurpose runOutput={runOutput} editorContent={editorContent} />
         <Chat
           message={message}
           setMessage={setMessage}

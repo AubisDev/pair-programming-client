@@ -24,6 +24,7 @@ specifiers:
   react-dom: 18.2.0
   react-painter: ^0.4.0
   react-resizable: ^3.0.5
+  react-toastify: ^9.1.3
   socket.io-client: ^4.6.2
   tailwindcss: 3.3.2
   typescript: 5.1.3
@@ -34,6 +35,7 @@ specifiers:
   xterm: 5.2.1
   xterm-addon-canvas: 0.4.0
   xterm-addon-image: 0.4.1
+  xterm-addon-search: 0.12.0
   xterm-addon-serialize: 0.10.0
   xterm-addon-unicode11: 0.5.0
   xterm-addon-webgl: 0.15.0
@@ -51,7 +53,7 @@ dependencies:
   eslint-config-next: 13.4.5_tizxnkcvjrb4cldxgwq5h3lj5u
   monaco-editor: 0.39.0
   monaco-editor-core: 0.39.0
-  monaco-languageclient: 6.2.0_ccjwv4gn7nwgfrsehdxjm6dn5i
+  monaco-languageclient: 6.2.0_sxjd3xn4ikvnbg2nhila6imtwm
   next: 13.4.5_biqbaboplfbrettd7655fr4n2y
   postcss: 8.4.24
   prop-types: 15.8.1
@@ -60,6 +62,7 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-painter: 0.4.0_sh5qlbywuemxd2y3xkrw2y2kr4
   react-resizable: 3.0.5_biqbaboplfbrettd7655fr4n2y
+  react-toastify: 9.1.3_biqbaboplfbrettd7655fr4n2y
   socket.io-client: 4.6.2
   tailwindcss: 3.3.2
   typescript: 5.1.3
@@ -70,6 +73,7 @@ dependencies:
   xterm: 5.2.1
   xterm-addon-canvas: 0.4.0_xterm@5.2.1
   xterm-addon-image: 0.4.1_xterm@5.2.1
+  xterm-addon-search: 0.12.0_xterm@5.2.1
   xterm-addon-serialize: 0.10.0_xterm@5.2.1
   xterm-addon-unicode11: 0.5.0_xterm@5.2.1
   xterm-addon-webgl: 0.15.0_xterm@5.2.1
@@ -95,7 +99,7 @@ packages:
       regenerator-runtime: 0.13.11
     dev: false
 
-  /@codingame/monaco-vscode-api/1.79.3_ccjwv4gn7nwgfrsehdxjm6dn5i:
+  /@codingame/monaco-vscode-api/1.79.3_sxjd3xn4ikvnbg2nhila6imtwm:
     resolution: {integrity: sha512-6cKtLozmKCRXFJH2hUaz4hMK/PsSCmYD/E+bgjIaltKMZYIjHclJyeLRmCdq8ogQaRjOzcR8yp2JMqWnP72XEw==}
     hasBin: true
     peerDependencies:
@@ -117,6 +121,7 @@ packages:
       xterm: 5.2.1
       xterm-addon-canvas: 0.4.0_xterm@5.2.1
       xterm-addon-image: 0.4.1_xterm@5.2.1
+      xterm-addon-search: 0.12.0_xterm@5.2.1
       xterm-addon-serialize: 0.10.0_xterm@5.2.1
       xterm-addon-unicode11: 0.5.0_xterm@5.2.1
       xterm-addon-webgl: 0.15.0_xterm@5.2.1
@@ -3018,7 +3023,7 @@ packages:
   /monaco-editor/0.39.0:
     resolution: {integrity: sha512-zhbZ2Nx93tLR8aJmL2zI1mhJpsl87HMebNBM6R8z4pLfs8pj604pIVIVwyF1TivcfNtIPpMXL+nb3DsBmE/x6Q==}
 
-  /monaco-languageclient/6.2.0_ccjwv4gn7nwgfrsehdxjm6dn5i:
+  /monaco-languageclient/6.2.0_sxjd3xn4ikvnbg2nhila6imtwm:
     resolution: {integrity: sha512-hvEc4/G8gZ6ZM2SQ6xeW/UD7IdO5WioMQPY0V1lK8xEkuY9pI5oASHx4fFiYidyjrTA2ra+s5vK2swsEJxcFyA==}
     engines: {node: '>=16.11.0', npm: '>=9.0.0'}
     requiresBuild: true
@@ -3026,7 +3031,7 @@ packages:
       monaco-editor: ~0.39.0
     dependencies:
       monaco-editor: 0.39.0
-      vscode: /@codingame/monaco-vscode-api/1.79.3_ccjwv4gn7nwgfrsehdxjm6dn5i
+      vscode: /@codingame/monaco-vscode-api/1.79.3_sxjd3xn4ikvnbg2nhila6imtwm
       vscode-jsonrpc: 8.1.0
       vscode-languageclient: 8.1.0
     transitivePeerDependencies:
@@ -3703,6 +3708,17 @@ packages:
       react-draggable: 4.4.5_biqbaboplfbrettd7655fr4n2y
     transitivePeerDependencies:
       - react-dom
+    dev: false
+
+  /react-toastify/9.1.3_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-fPfb8ghtn/XMxw3LkxQBk3IyagNpF/LIKjOBflbexr2AWxAH1MJgvnESwEwBn9liLFXgTKWgBSdZpw9m4OTHTg==}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      clsx: 1.2.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /react/18.2.0:
@@ -4727,6 +4743,14 @@ packages:
     resolution: {integrity: sha512-iJpYyvtbHg4oXSv+D6J73ZfCjnboZpbZ567MLplXDBlYSUknv3kvPTfVMPJATV7Zsx7+bDgyXboCh9vsDf/m/w==}
     peerDependencies:
       xterm: ~5.2.0
+    dependencies:
+      xterm: 5.2.1
+    dev: false
+
+  /xterm-addon-search/0.12.0_xterm@5.2.1:
+    resolution: {integrity: sha512-hXAuO7Ts2+Jf9K8mZrUx8IFd7c/Flgks/jyqA1L4reymyfmXtcsd+WDLel8R9Tgy2CLyKABVBP09/Ua/FmXcvg==}
+    peerDependencies:
+      xterm: ^5.0.0
     dependencies:
       xterm: 5.2.1
     dev: false

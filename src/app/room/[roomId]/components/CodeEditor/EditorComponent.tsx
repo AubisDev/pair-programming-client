@@ -1,26 +1,34 @@
-import {useContext} from 'react'
+import {useContext, useState} from 'react'
 import EditorLoader from '../EditorLoader'
 import {EditorContext, EditorConfigContextType} from './context/editorContext'
-import Editor, {DiffEditor, useMonaco, loader} from '@monaco-editor/react'
-
+import Editor from '@monaco-editor/react'
 interface Props {
-  content: string | undefined
-  handleChange: (e: string | undefined) => void
+  code: string | undefined
+  handleChange: (action: any, data: any) => void
 }
 
-const EditorComponent = ({content, handleChange}: Props) => {
+const EditorComponent = ({code, handleChange}: Props) => {
+  const [value, setValue] = useState<string | undefined>(code || '')
   const {language, theme} = useContext(EditorContext) as EditorConfigContextType
+
+  console.log({language, theme})
+
+  const handleEditorChange = (value: string | undefined) => {
+    setValue(value)
+    handleChange('code', value)
+  }
+
   return (
     <Editor
       height="100%"
       width="100%"
-      defaultLanguage={language}
+      defaultLanguage={language.value}
       defaultValue="// Your code here"
       theme={theme}
       loading={<EditorLoader />}
       className="min-w-[400px]"
-      value={content}
-      onChange={e => handleChange(e)}
+      value={value}
+      onChange={handleEditorChange}
       options={{
         autoIndent: 'full',
         fontLigatures: true,
