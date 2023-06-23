@@ -3,14 +3,15 @@ import {Option} from './components/Option/Option'
 import {v4 as uuidv4} from 'uuid'
 
 interface Props {
-  list: Language[] | Theme[]
+  list: Language[] | Theme[];
+  setOpenOptionList: (openOptionList: boolean) => void;
 }
 
-const OptionsList = ({list}: Props) => {
+const OptionsList = ({list, setOpenOptionList}: Props) => {
   return (
     <>
       {list.map((option: Language | Theme) => (
-        <Option key={uuidv4()} option={option} />
+        <Option key={uuidv4()} option={option} setOpenOptionList={setOpenOptionList}/>
       ))}
     </>
   )

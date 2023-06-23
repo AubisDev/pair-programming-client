@@ -6,7 +6,7 @@ interface Props {
 const Button = ({label, action}: Props) => {
   return (
     <button
-      className="btn btn-sm bg-purple-900 text-white capitalize mt-1 outline-nones border-white/30 hover:bg-purple-800 "
+      className="mr-2 text-white capitalize bg-purple-900 btn btn-sm outline-nones border-white/30 hover:bg-purple-800 "
       onClick={action}
     >
       {label}
