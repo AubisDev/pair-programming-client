@@ -288,4 +288,4 @@ export const languageOptions: Language[] = [
   },
 ]
 
-export const themeOptions: Theme[] = ['vs-dark', 'light']
+export const themeOptions: string[] = ['vs-dark', 'light']

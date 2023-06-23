@@ -1,5 +1,5 @@
-import Dropwdown from '../../components/MenuOptions/Dropdrown/Dropwdown'
-import Button from '../../components/MenuOptions/Buttons/Button'
+import Button from './components/Buttons/Button'
+import Dropwdown from './components/Dropdrown/Dropwdown'
 
 interface Props {
   handleCompile: () => void

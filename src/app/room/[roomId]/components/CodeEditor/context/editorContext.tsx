@@ -5,24 +5,22 @@ import {
   createContext,
   useState,
 } from 'react'
+import {Theme} from 'react-toastify'
 import {
   Language,
-  Theme,
-} from '../components/MenuOptions/Dropdrown/utils/options'
-import {
-  languageOptions,
   themeOptions,
-} from '../components/MenuOptions/Dropdrown/utils/options'
+} from '../components/MenuOptions/components/Dropdrown/utils/options'
+import {languageOptions} from '../utils/constants'
 
 type EditorConfig = {}
 
 export interface EditorConfigContextType {
-  theme: Theme
+  theme: string
   language: Language
-  setTheme: Dispatch<SetStateAction<Theme>>
+  setTheme: Dispatch<SetStateAction<string>>
   setLanguage: Dispatch<SetStateAction<Language>>
   languageOptions: Language[]
-  themeOptions: Theme[]
+  themeOptions: string[]
   roomCode: string | undefined
   setRoomCode: Dispatch<SetStateAction<string | undefined>>
 }
@@ -30,7 +28,7 @@ export interface EditorConfigContextType {
 export const EditorContext = createContext<EditorConfigContextType | null>(null)
 
 const EditorConfigProvider = ({children}: PropsWithChildren) => {
-  const [theme, setTheme] = useState(themeOptions[0])
+  const [theme, setTheme] = useState<string>(themeOptions[0])
   const [language, setLanguage] = useState(languageOptions[0])
   const [roomCode, setRoomCode] = useState<string | undefined>('')
 

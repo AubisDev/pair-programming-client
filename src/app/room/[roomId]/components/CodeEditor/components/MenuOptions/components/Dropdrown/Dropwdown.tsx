@@ -1,9 +1,10 @@
 import {useContext} from 'react'
-import {
-  EditorContext,
-  EditorConfigContextType,
-} from '../../../context/editorContext'
+
 import OptionsList from './OptionList/OptionsList'
+import {
+  EditorConfigContextType,
+  EditorContext,
+} from '../../../../context/editorContext'
 
 interface Props {
   label: 'theme' | 'language'

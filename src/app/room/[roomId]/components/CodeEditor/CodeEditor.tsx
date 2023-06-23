@@ -1,9 +1,9 @@
 'use client'
 import {useEffect, useState} from 'react'
-import MenuOption from './other/MenuOptions/MenuOption'
 import EditorConfigProvider from './context/editorContext'
 import EditorComponent from './EditorComponent'
 import useKeyPress from './hooks/useKeyPress'
+import MenuOption from './components/MenuOptions/MenuOption'
 
 const CodeEditor = () => {
   const [customInput, setCustomInput] = useState('')
