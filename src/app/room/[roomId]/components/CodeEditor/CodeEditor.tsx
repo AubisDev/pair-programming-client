@@ -1,17 +1,32 @@
 'use client'
-import {useEffect, useState} from 'react'
-import EditorConfigProvider from './context/editorContext'
+import {useContext, useEffect, useState} from 'react'
+import EditorConfigProvider, {
+  EditorConfigContextType,
+  EditorContext,
+} from './context/editorContext'
 import EditorComponent from './EditorComponent'
 import useKeyPress from './hooks/useKeyPress'
 import MenuOption from './components/MenuOptions/MenuOption'
+import {socket} from '@/app/utils/socket'
+import {useParams} from 'next/navigation'
+
+const defaultValue = '// Your code here!'
 
 const CodeEditor = () => {
   const [customInput, setCustomInput] = useState('')
   const [outputDetails, setOutputDetails] = useState(null)
   const [processing, setProcessing] = useState(null)
-
+  const {roomCode, setRoomCode} = useContext(
+    EditorContext,
+  ) as EditorConfigContextType
+  const [value, setValue] = useState<string | undefined>(
+    roomCode || defaultValue,
+  )
+  const params = useParams()
   const enterPress = useKeyPress('Enter')
   const ctrlPress = useKeyPress('Control')
+
+  console.log(roomCode, value)
 
   useEffect(() => {
     if (enterPress && ctrlPress) {
@@ -21,6 +36,12 @@ const CodeEditor = () => {
     }
   }, [ctrlPress, enterPress])
 
+  const handleRoomCodeSave = () => {
+    socket.emit('update-editor', {
+      room: params.roomId,
+      content: value,
+    })
+  }
   const handleCompile = () => {
     // try {
     //   setRunOutput(editorContent as string)
@@ -36,12 +57,13 @@ const CodeEditor = () => {
   const checkStatus = async (token: any) => {
     // We will come to the implementation later in the code
   }
-
-  function handleThemeChange(th: any) {
-    // We will come to the implementation later in the code
-  }
+  useEffect(() => {
+    socket.on('client-editor', newEditorContent => {
+      setValue(newEditorContent)
+    })
+  }, [])
   return (
-    <EditorConfigProvider>
+    <>
       {/* <ToastContainer
         position="top-right"
         autoClose={2000}
@@ -54,9 +76,12 @@ const CodeEditor = () => {
         pauseOnHover
       /> */}
 
-      <MenuOption handleCompile={handleCompile} />
-      <EditorComponent />
-    </EditorConfigProvider>
+      <MenuOption
+        handleCompile={handleCompile}
+        handleRoomCodeSave={handleRoomCodeSave}
+      />
+      <EditorComponent value={value} setValue={setValue} />
+    </>
   )
 }
 export default CodeEditor

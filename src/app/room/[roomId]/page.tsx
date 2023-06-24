@@ -13,6 +13,7 @@ import {socket} from '@/app/utils/socket'
 import CodeEditor from './components/CodeEditor/CodeEditor'
 import MultiplePurpose from './components/MultiplePurpose/MultiplePurpose'
 import Error from 'next/error'
+import EditorConfigProvider from './components/CodeEditor/context/editorContext'
 
 // export const socket: Socket<DefaultEventsMap, DefaultEventsMap> = io(
 //   'http://localhost:4000',
@@ -40,13 +41,6 @@ const Room = () => {
   const [message, setMessage] = useState<Message>(messageInitialState)
   const [messages, setMessages] = useState<Message[]>([])
   const params = useParams()
-
-  const onSaveClick = () => {
-    socket.emit('update-editor', {
-      room: params.roomId,
-      content: editorContent,
-    })
-  }
 
   useEffect(() => {
     document.addEventListener('keydown', function (event) {
@@ -101,11 +95,6 @@ const Room = () => {
       })
     })
 
-    socket.on('client-editor', newEditorContent => {
-      console.log(newEditorContent)
-      setContent(newEditorContent)
-    })
-
     socket.on('textarea', newText => {
       console.log('after: ' + newText)
       setText(newText)
@@ -119,22 +108,27 @@ const Room = () => {
   }
 
   return (
-    <div className="flex flex-row h-screen overflow-hidden">
-      <ResizableContainer>
-        <CodeEditor />
-      </ResizableContainer>
-      <div className="flex flex-col w-full h-full min-w-[400px] overflow-hidden">
-        <MultiplePurpose runOutput={runOutput} editorContent={editorContent} />
-        <Chat
-          message={message}
-          setMessage={setMessage}
-          messages={messages}
-          setMessages={setMessages}
-          roomId={params.roomId}
-          sendMessage={sendMessage}
-        />
+    <EditorConfigProvider>
+      <div className="flex flex-row h-screen overflow-hidden">
+        <ResizableContainer>
+          <CodeEditor />
+        </ResizableContainer>
+        <div className="flex flex-col w-full h-full min-w-[400px] overflow-hidden">
+          <MultiplePurpose
+            runOutput={runOutput}
+            editorContent={editorContent}
+          />
+          <Chat
+            message={message}
+            setMessage={setMessage}
+            messages={messages}
+            setMessages={setMessages}
+            roomId={params.roomId}
+            sendMessage={sendMessage}
+          />
+        </div>
       </div>
-    </div>
+    </EditorConfigProvider>
   )
 }
 export default Room

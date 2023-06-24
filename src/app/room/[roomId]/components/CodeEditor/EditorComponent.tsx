@@ -1,18 +1,17 @@
-import {useContext, useState} from 'react'
+import {Dispatch, SetStateAction, useContext, useState} from 'react'
 import EditorLoader from '../EditorLoader'
 import {EditorContext, EditorConfigContextType} from './context/editorContext'
 import Editor from '@monaco-editor/react'
 
-const defaultValue = '// Your code here!'
+interface Props {
+  value: string | undefined
+  setValue: Dispatch<SetStateAction<string | undefined>>
+}
 
-const EditorComponent = () => {
+const EditorComponent = ({value, setValue}: Props) => {
   const {language, theme, roomCode, setRoomCode} = useContext(
     EditorContext,
   ) as EditorConfigContextType
-
-  const [value, setValue] = useState<string | undefined>(
-    roomCode || defaultValue,
-  )
 
   const handleEditorChange = (value: string | undefined) => {
     setValue(value)
