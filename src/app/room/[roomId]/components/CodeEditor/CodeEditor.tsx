@@ -26,8 +26,6 @@ const CodeEditor = () => {
   const enterPress = useKeyPress('Enter')
   const ctrlPress = useKeyPress('Control')
 
-  console.log(roomCode, value)
-
   useEffect(() => {
     if (enterPress && ctrlPress) {
       console.log('enterPress', enterPress)
