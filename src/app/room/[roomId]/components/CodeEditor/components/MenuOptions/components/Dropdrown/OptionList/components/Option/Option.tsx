@@ -1,32 +1,33 @@
 import {useContext} from 'react'
-import {Language, Theme} from '../../../utils/options'
+import type {Language} from '../../../utils/options'
+import {Theme} from '../../../../../../../lib/defineTheme'
 import {
   EditorContext,
   EditorConfigContextType,
 } from '@/app/room/[roomId]/components/CodeEditor/context/editorContext'
 
 interface Props {
-  option: Theme | Language
-  setOpenOptionList: (openOptionList: boolean) => void
+  option: string | Language
+  theme?: string
 }
 
-export const Option = ({option, setOpenOptionList}: Props) => {
-  const {setLanguage, setTheme} = useContext(
+export const Option = ({option, theme}: Props) => {
+  const {setLanguage, handleThemeChange} = useContext(
     EditorContext,
   ) as EditorConfigContextType
 
-  const handleChangeClick = (selection: Theme | Language) => {
-    setOpenOptionList(false)
-    if (typeof selection === 'string') setTheme(selection)
-    else setLanguage(selection)
+  const handleClick = () => {
+    if (typeof option === 'string') {
+      handleThemeChange(theme as Theme<string> & string)
+    } else {
+      setLanguage(option)
+    }
   }
 
   return (
     <li
-      onClick={() => {
-        handleChangeClick(option)
-      }}
-      className="heading-7 py-2 font-semibold z-[50] w-full cursor-pointer hover:bg-white/10"
+      onClick={handleClick}
+      className="heading-7 py-2 font-semibold z-[50] w-52 cursor-pointer hover:bg-white/10"
     >
       {typeof option === 'string' ? option : option.name}
     </li>

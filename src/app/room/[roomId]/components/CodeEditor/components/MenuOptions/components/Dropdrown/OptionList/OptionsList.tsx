@@ -1,17 +1,22 @@
-import {Language, Theme} from '../utils/options'
+import {Theme} from '../../../../../lib/defineTheme'
+import {Language} from '../utils/options'
 import {Option} from './components/Option/Option'
 import {v4 as uuidv4} from 'uuid'
 
 interface Props {
-  list: Language[] | Theme[];
-  setOpenOptionList: (openOptionList: boolean) => void;
+  list: Language[] | string[]
+  themeOptions?: string[]
 }
 
-const OptionsList = ({list, setOpenOptionList}: Props) => {
+const OptionsList = ({list, themeOptions}: Props) => {
   return (
     <>
-      {list.map((option: Language | Theme) => (
-        <Option key={uuidv4()} option={option} setOpenOptionList={setOpenOptionList}/>
+      {list.map((option: Language | string, i) => (
+        <Option
+          key={uuidv4()}
+          option={option}
+          theme={themeOptions ? themeOptions[i] : ''}
+        />
       ))}
     </>
   )

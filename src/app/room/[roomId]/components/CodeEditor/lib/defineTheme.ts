@@ -1,49 +1,53 @@
 import {loader} from '@monaco-editor/react'
 
-const monacoThemes: any = {
+export type Theme<T> = {
+  [key: string]: T
+}
+
+export const monacoThemes: Theme<string> = {
   active4d: 'Active4D',
-  'all-hallows-eve': 'All Hallows Eve',
+  allHallowsEve: 'All Hallows Eve',
   amy: 'Amy',
-  'birds-of-paradise': 'Birds of Paradise',
+  birdsOfParadise: 'Birds of Paradise',
   blackboard: 'Blackboard',
-  'brilliance-black': 'Brilliance Black',
-  'brilliance-dull': 'Brilliance Dull',
-  'chrome-devtools': 'Chrome DevTools',
-  'clouds-midnight': 'Clouds Midnight',
+  brillianceBlack: 'Brilliance Black',
+  brillianceDull: 'Brilliance Dull',
+  chromeDevtools: 'Chrome DevTools',
+  cloudsMidnight: 'Clouds Midnight',
   clouds: 'Clouds',
   cobalt: 'Cobalt',
   dawn: 'Dawn',
   dreamweaver: 'Dreamweaver',
   eiffel: 'Eiffel',
-  'espresso-libre': 'Espresso Libre',
+  espressoLibre: 'Espresso Libre',
   github: 'GitHub',
   idle: 'IDLE',
   katzenmilch: 'Katzenmilch',
-  'kuroir-theme': 'Kuroir Theme',
+  kuroirTheme: 'Kuroir Theme',
   lazy: 'LAZY',
-  'magicwb--amiga-': 'MagicWB (Amiga)',
-  'merbivore-soft': 'Merbivore Soft',
+  magicwbAmiga: 'MagicWB (Amiga)',
+  merbivoreSoft: 'Merbivore Soft',
   merbivore: 'Merbivore',
-  'monokai-bright': 'Monokai Bright',
+  monokaiBright: 'Monokai Bright',
   monokai: 'Monokai',
-  'night-owl': 'Night Owl',
-  'oceanic-next': 'Oceanic Next',
-  'pastels-on-dark': 'Pastels on Dark',
-  'slush-and-poppies': 'Slush and Poppies',
-  'solarized-dark': 'Solarized-dark',
-  'solarized-light': 'Solarized-light',
+  nightOwl: 'Night Owl',
+  oceanicNext: 'Oceanic Next',
+  pastelsOnDark: 'Pastels on Dark',
+  slushAndPoppies: 'Slush and Poppies',
+  solarizedDark: 'Solarized-dark',
+  solarizedLight: 'Solarized-light',
   spacecadet: 'SpaceCadet',
   sunburst: 'Sunburst',
-  'textmate--mac-classic-': 'Textmate (Mac Classic)',
-  'tomorrow-night-blue': 'Tomorrow-Night-Blue',
-  'tomorrow-night-bright': 'Tomorrow-Night-Bright',
-  'tomorrow-night-eighties': 'Tomorrow-Night-Eighties',
-  'tomorrow-night': 'Tomorrow-Night',
+  textmateMacClassic: 'Textmate (Mac Classic)',
+  tomorrowNightBlue: 'Tomorrow-Night-Blue',
+  tomorrowMightBright: 'Tomorrow-Night-Bright',
+  tomorrowNightEighties: 'Tomorrow-Night-Eighties',
+  tomorrowNight: 'Tomorrow-Night',
   tomorrow: 'Tomorrow',
   twilight: 'Twilight',
-  'upstream-sunburst': 'Upstream Sunburst',
-  'vibrant-ink': 'Vibrant Ink',
-  'xcode-default': 'Xcode_default',
+  upstreamSunburst: 'Upstream Sunburst',
+  vibrantInk: 'Vibrant Ink',
+  xcodeDefault: 'Xcode_default',
   zenburnesque: 'Zenburnesque',
   iplastic: 'iPlastic',
   idlefingers: 'idleFingers',
@@ -52,10 +56,13 @@ const monacoThemes: any = {
 }
 
 const defineTheme = (theme: string) => {
+  console.log(theme)
   return new Promise(res => {
     Promise.all([
       loader.init(),
-      import(`monaco-themes/themes/${monacoThemes[theme]}.json`),
+      import(
+        `../../../../../../../node_modules/monaco-themes/themes/${monacoThemes[theme]}.json`
+      ),
     ]).then(([monaco, themeData]) => {
       monaco.editor.defineTheme(theme, themeData)
       res(0)

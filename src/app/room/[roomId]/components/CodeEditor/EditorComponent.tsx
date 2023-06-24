@@ -9,6 +9,7 @@ const EditorComponent = () => {
   const {language, theme, roomCode, setRoomCode} = useContext(
     EditorContext,
   ) as EditorConfigContextType
+
   const [value, setValue] = useState<string | undefined>(
     roomCode || defaultValue,
   )
@@ -34,11 +35,11 @@ const EditorComponent = () => {
     <Editor
       height="100%"
       width="100%"
-      defaultLanguage={language.value}
       defaultValue="// Your code here"
-      theme={theme}
+      theme={theme as string}
       loading={<EditorLoader />}
-      className="min-w-[400px]"
+      className="min-w-[400px] "
+      language={language.value || 'javacript'}
       value={value}
       onChange={handleEditorChange}
       options={{

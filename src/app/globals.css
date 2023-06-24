@@ -2,3 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Works on Firefox */
+* {
+    scrollbar-width: 8px;
+  }
+  
+  /* Works on Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 8px !important;
+  }
+  

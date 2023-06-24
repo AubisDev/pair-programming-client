@@ -5,44 +5,49 @@ import {
   createContext,
   useState,
 } from 'react'
-import {Theme} from 'react-toastify'
-import {
-  Language,
-  themeOptions,
-} from '../components/MenuOptions/components/Dropdrown/utils/options'
+import {Language} from '../components/MenuOptions/components/Dropdrown/utils/options'
 import {languageOptions} from '../utils/constants'
-
-type EditorConfig = {}
+import {Theme, defineTheme, monacoThemes} from '../lib/defineTheme'
 
 export interface EditorConfigContextType {
-  theme: string
+  theme: Theme<string> | string
   language: Language
-  setTheme: Dispatch<SetStateAction<string>>
+  setTheme: Dispatch<SetStateAction<string | Theme<string>>>
   setLanguage: Dispatch<SetStateAction<Language>>
   languageOptions: Language[]
-  themeOptions: string[]
   roomCode: string | undefined
   setRoomCode: Dispatch<SetStateAction<string | undefined>>
+  handleThemeChange: (newTheme: Theme<string> & string) => void
+  monacoThemes: Theme<string>
 }
 
 export const EditorContext = createContext<EditorConfigContextType | null>(null)
 
 const EditorConfigProvider = ({children}: PropsWithChildren) => {
-  const [theme, setTheme] = useState<string>(themeOptions[0])
-  const [language, setLanguage] = useState(languageOptions[0])
+  const [theme, setTheme] = useState<Theme<string> | string>('vs-dark')
+  const [language, setLanguage] = useState<Language>(languageOptions[0])
   const [roomCode, setRoomCode] = useState<string | undefined>('')
+
+  const handleThemeChange = (newTheme: string) => {
+    if (['light', 'vs-dark'].includes(newTheme)) {
+      setTheme(newTheme)
+    } else {
+      defineTheme(newTheme).then(() => setTheme(newTheme))
+    }
+  }
 
   return (
     <EditorContext.Provider
       value={{
         theme,
-        language,
         setTheme,
+        language,
         setLanguage,
         languageOptions,
-        themeOptions,
+        monacoThemes,
         roomCode,
         setRoomCode,
+        handleThemeChange,
       }}
     >
       {children}
