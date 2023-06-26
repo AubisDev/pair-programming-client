@@ -14,6 +14,7 @@ import CodeEditor from './components/CodeEditor/CodeEditor'
 import MultiplePurpose from './components/MultiplePurpose/MultiplePurpose'
 import Error from 'next/error'
 import EditorConfigProvider from './components/CodeEditor/context/editorContext'
+import {Toaster} from 'sonner'
 
 // export const socket: Socket<DefaultEventsMap, DefaultEventsMap> = io(
 //   'http://localhost:4000',
@@ -30,7 +31,6 @@ const Room = () => {
   const [text, setText] = useState('')
   const content = editorStore(state => state.editorContent)
   const [editorContent, setEditorContent] = useState(content)
-  const [runOutput, setRunOutput] = useState('')
   const username = userStore(state => state.username)
   const setContent = editorStore(state => state.setEditorContent)
   const messageInitialState = {
@@ -110,14 +110,17 @@ const Room = () => {
   return (
     <EditorConfigProvider>
       <div className="flex flex-row h-screen overflow-hidden">
+        <Toaster
+          position="top-right"
+          visibleToasts={3}
+          closeButton
+          richColors
+        />
         <ResizableContainer>
           <CodeEditor />
         </ResizableContainer>
         <div className="flex flex-col w-full h-full min-w-[400px] overflow-hidden">
-          <MultiplePurpose
-            runOutput={runOutput}
-            editorContent={editorContent}
-          />
+          <MultiplePurpose editorContent={editorContent} />
           <Chat
             message={message}
             setMessage={setMessage}

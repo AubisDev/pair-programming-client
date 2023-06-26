@@ -9,14 +9,24 @@ import useKeyPress from './hooks/useKeyPress'
 import MenuOption from './components/MenuOptions/MenuOption'
 import {socket} from '@/app/utils/socket'
 import {useParams} from 'next/navigation'
+import {
+  createFormData,
+  compileHeaderOptions,
+  getCompileToken,
+} from './utils/commons'
+import axios from 'axios'
+import {getStatusHeaderOptions} from './utils/status'
+import {Toaster, toast} from 'sonner'
+import {useToast} from './hooks/useToastify'
 
 const defaultValue = '// Your code here!'
 
 const CodeEditor = () => {
+  const {showSuccessToast, showErrorToast} = useToast()
   const [customInput, setCustomInput] = useState('')
-  const [outputDetails, setOutputDetails] = useState(null)
-  const [processing, setProcessing] = useState(null)
-  const {roomCode, setRoomCode} = useContext(
+
+  const [processing, setProcessing] = useState(false)
+  const {roomCode, language, setOutputDetails} = useContext(
     EditorContext,
   ) as EditorConfigContextType
   const [value, setValue] = useState<string | undefined>(
@@ -40,7 +50,21 @@ const CodeEditor = () => {
       content: value,
     })
   }
-  const handleCompile = () => {
+
+  const handleCompile = async () => {
+    setProcessing(true)
+    const formData = createFormData(
+      language.id,
+      btoa(roomCode as string),
+      btoa(customInput),
+    )
+    const options = compileHeaderOptions(formData)
+    const token = await getCompileToken(options)
+    if (token === false) {
+      setProcessing(false)
+      return
+    }
+    checkStatus(token)
     // try {
     //   setRunOutput(editorContent as string)
     // } catch (error: any) {
@@ -53,7 +77,31 @@ const CodeEditor = () => {
   }
 
   const checkStatus = async (token: any) => {
-    // We will come to the implementation later in the code
+    const options = getStatusHeaderOptions(token)
+    try {
+      let response = await axios.request(options)
+      console.log(response)
+      let statusId = response.data.status?.id
+
+      // Processed - we have a result
+      if (statusId === 1 || statusId === 2) {
+        // still processing
+        setTimeout(() => {
+          checkStatus(token)
+        }, 2000)
+        return
+      } else {
+        setProcessing(false)
+        setOutputDetails(response.data)
+        showSuccessToast(`Compiled Successfully!`)
+        console.log('response.data', response.data)
+        return
+      }
+    } catch (err) {
+      console.log('err', err)
+      setProcessing(false)
+      showErrorToast('There was an error')
+    }
   }
   useEffect(() => {
     socket.on('client-editor', newEditorContent => {
@@ -62,18 +110,6 @@ const CodeEditor = () => {
   }, [])
   return (
     <>
-      {/* <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      /> */}
-
       <MenuOption
         handleCompile={handleCompile}
         handleRoomCodeSave={handleRoomCodeSave}

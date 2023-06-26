@@ -1,27 +1,11 @@
-import {toast} from 'react-toastify'
+import {Toaster, toast} from 'sonner'
 
-export const useToastify = () => {
+export const useToast = () => {
   const showSuccessToast = (msg: string) => {
-    toast.success(msg || `Compiled Successfully!`, {
-      position: 'top-right',
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    })
+    return toast.success(msg)
   }
   const showErrorToast = (msg: string) => {
-    toast.error(msg || `Something went wrong! Please try again.`, {
-      position: 'top-right',
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    })
+    return toast.error(msg)
   }
 
   return {

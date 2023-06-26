@@ -19,6 +19,10 @@ export interface EditorConfigContextType {
   setRoomCode: Dispatch<SetStateAction<string | undefined>>
   handleThemeChange: (newTheme: Theme<string> & string) => void
   monacoThemes: Theme<string>
+  runOutput: string
+  setRunOutput: Dispatch<SetStateAction<string>>
+  outputDetails: any
+  setOutputDetails: Dispatch<SetStateAction<any>>
 }
 
 export const EditorContext = createContext<EditorConfigContextType | null>(null)
@@ -27,6 +31,8 @@ const EditorConfigProvider = ({children}: PropsWithChildren) => {
   const [theme, setTheme] = useState<Theme<string> | string>('vs-dark')
   const [language, setLanguage] = useState<Language>(languageOptions[0])
   const [roomCode, setRoomCode] = useState<string | undefined>('')
+  const [runOutput, setRunOutput] = useState<string>('')
+  const [outputDetails, setOutputDetails] = useState<any>('')
 
   const handleThemeChange = (newTheme: string) => {
     if (['light', 'vs-dark'].includes(newTheme)) {
@@ -48,6 +54,10 @@ const EditorConfigProvider = ({children}: PropsWithChildren) => {
         roomCode,
         setRoomCode,
         handleThemeChange,
+        runOutput,
+        setRunOutput,
+        outputDetails,
+        setOutputDetails,
       }}
     >
       {children}
