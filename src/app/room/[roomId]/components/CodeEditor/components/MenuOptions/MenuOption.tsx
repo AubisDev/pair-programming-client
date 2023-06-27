@@ -4,8 +4,7 @@ import {
   EditorConfigContextType,
 } from '../../context/editorContext'
 import Button from './components/Buttons/Button'
-import Dropwdown from './components/Dropdrown/Dropwdown'
-import SettingIcon from './components/svg/SettingIcon'
+import Settings from './components/Settings/Settings'
 
 interface Props {
   handleCompile: () => void
@@ -23,7 +22,7 @@ const MenuOption = ({handleCompile, handleRoomCodeSave}: Props) => {
       <Dropwdown label="theme" /> */}
       <div className="flex flex-row items-center gap-x-2">
         <p className="text-sm">Current: [{language.name}]</p>
-        <SettingIcon />
+        <Settings />
         <Button label="Share" action={handleRoomCodeSave} />
         <Button label="Run" action={handleCompile} />
       </div>
