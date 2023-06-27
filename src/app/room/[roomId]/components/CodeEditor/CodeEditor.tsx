@@ -1,9 +1,6 @@
 'use client'
 import {useContext, useEffect, useState} from 'react'
-import EditorConfigProvider, {
-  EditorConfigContextType,
-  EditorContext,
-} from './context/editorContext'
+import {EditorConfigContextType, EditorContext} from './context/editorContext'
 import EditorComponent from './EditorComponent'
 import useKeyPress from './hooks/useKeyPress'
 import MenuOption from './components/MenuOptions/MenuOption'
@@ -65,22 +62,12 @@ const CodeEditor = () => {
       return
     }
     checkStatus(token)
-    // try {
-    //   setRunOutput(editorContent as string)
-    // } catch (error: any) {
-    //   let message
-    //   if ((error as Error) instanceof Error) message = error.message
-    //   else message = String(error)
-    //   // we'll proceed, but let's report it
-    //   reportError({message})
-    // }
   }
 
   const checkStatus = async (token: any) => {
     const options = getStatusHeaderOptions(token)
     try {
       let response = await axios.request(options)
-      console.log(response)
       let statusId = response.data.status?.id
 
       // Processed - we have a result
@@ -94,11 +81,9 @@ const CodeEditor = () => {
         setProcessing(false)
         setOutputDetails(response.data)
         showSuccessToast(`Compiled Successfully!`)
-        console.log('response.data', response.data)
         return
       }
     } catch (err) {
-      console.log('err', err)
       setProcessing(false)
       showErrorToast('There was an error')
     }

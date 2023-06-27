@@ -1,18 +1,14 @@
 'use client'
 import {FormEvent, useEffect, useState} from 'react'
 import ResizableContainer from './components/ResizableContainer'
-import TextSection from './components/TextSection'
 import Chat from './components/Chat/Chat'
-import {useParams, useRouter} from 'next/navigation'
-import {Role, User} from '@/models/user.model'
-import {Socket, io} from 'socket.io-client'
-import {DefaultEventsMap} from 'socket.io/dist/typed-events'
+import {useParams} from 'next/navigation'
+import {User} from '@/models/user.model'
 import {userStore, editorStore} from '@/app/store/store'
 import {randomID} from '@/app/utils/username'
 import {socket} from '@/app/utils/socket'
 import CodeEditor from './components/CodeEditor/CodeEditor'
 import MultiplePurpose from './components/MultiplePurpose/MultiplePurpose'
-import Error from 'next/error'
 import EditorConfigProvider from './components/CodeEditor/context/editorContext'
 import {Toaster} from 'sonner'
 
@@ -41,6 +37,13 @@ const Room = () => {
   const [message, setMessage] = useState<Message>(messageInitialState)
   const [messages, setMessages] = useState<Message[]>([])
   const params = useParams()
+
+  useEffect(() => {
+    let messagesContainer = document.getElementById('chat-messages')
+    if (messagesContainer) {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight
+    }
+  }, [messages])
 
   useEffect(() => {
     document.addEventListener('keydown', function (event) {
@@ -78,10 +81,6 @@ const Room = () => {
     //Message from server
     socket.on('message', (message: Message) => {
       setMessages(prevMessages => [...prevMessages, message])
-      let messagesContainer = document.getElementById('chat-messages')
-      if (messagesContainer) {
-        messagesContainer.scrollTop = messagesContainer.scrollHeight
-      }
     })
 
     socket.on('connected', user => {
