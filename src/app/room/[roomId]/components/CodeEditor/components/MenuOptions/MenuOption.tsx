@@ -5,6 +5,7 @@ import {
 } from '../../context/editorContext'
 import Button from './components/Buttons/Button'
 import Dropwdown from './components/Dropdrown/Dropwdown'
+import SettingIcon from './components/svg/SettingIcon'
 
 interface Props {
   handleCompile: () => void
@@ -20,9 +21,12 @@ const MenuOption = ({handleCompile, handleRoomCodeSave}: Props) => {
       </h6>
       {/* <Dropwdown label="language" />
       <Dropwdown label="theme" /> */}
-      <p className="mr-2 text-xs">Language: [{language.name}]</p>
-      <Button label="Save Changes" action={handleRoomCodeSave} />
-      <Button label="Run Code" action={handleCompile} />
+      <div className="flex flex-row items-center gap-x-2">
+        <p className="text-sm">Current: [{language.name}]</p>
+        <SettingIcon />
+        <Button label="Share" action={handleRoomCodeSave} />
+        <Button label="Run" action={handleCompile} />
+      </div>
     </div>
   )
 }

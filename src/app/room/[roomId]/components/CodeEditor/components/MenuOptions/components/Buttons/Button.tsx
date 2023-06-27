@@ -1,4 +1,5 @@
-import {Dispatch, SetStateAction} from 'react'
+import PlayIcon from '../svg/PlayIcon'
+import ShareIcon from '../svg/ShareIcon'
 
 interface Props {
   label: string
@@ -8,10 +9,11 @@ interface Props {
 const Button = ({label, action}: Props) => {
   return (
     <button
-      className="mr-2 text-white capitalize bg-purple-900 btn btn-sm outline-nones border-white/30 hover:bg-purple-800 "
+      className="flex flex-row items-center justify-center p-2 text-white capitalize duration-200 border rounded-lg btn-sm hover:bg-white/10 border-white/20"
       onClick={() => action()}
     >
       {label}
+      <span className="">{label === 'Run' ? <PlayIcon /> : <ShareIcon />}</span>
     </button>
   )
 }
