@@ -8,8 +8,15 @@ export const useToast = () => {
     return toast.error(msg)
   }
 
+  const showTipMessage = (msg: string) => {
+    return toast('Remember', {
+      description: msg,
+    })
+  }
+
   return {
     showSuccessToast,
     showErrorToast,
+    showTipMessage,
   }
 }

@@ -23,7 +23,7 @@ const Chat = ({messages, sendMessage, message, setMessage}: Props) => {
       <p className="text-lg font-semibold text-center text-purple-500 h-[8%]">
         Room Chat
       </p>
-      <div className="w-full h-[84%] overflow-y-scroll" id="chat-messages">
+      <div className="w-full h-[84%]  overflow-y-scroll" id="chat-messages">
         {messages.map((chatMessage: Message) => (
           <div
             key={uuidv4()}

@@ -13,8 +13,8 @@ import {
 } from './utils/commons'
 import axios from 'axios'
 import {getStatusHeaderOptions} from './utils/status'
-import {Toaster, toast} from 'sonner'
 import {useToast} from './hooks/useToastify'
+import {Toaster} from 'sonner'
 
 const defaultValue = '// Your code here!'
 
@@ -29,6 +29,7 @@ const CodeEditor = () => {
   const [value, setValue] = useState<string | undefined>(
     roomCode || defaultValue,
   )
+  const {showTipMessage} = useToast()
   const params = useParams()
   const enterPress = useKeyPress('Enter')
   const ctrlPress = useKeyPress('Control')
@@ -98,6 +99,13 @@ const CodeEditor = () => {
       setRoomCode(newEditorContent)
     })
   }, [])
+
+  useEffect(() => {
+    showTipMessage(
+      'Click Cltr + S to save the current for others users to see the changes',
+    )
+  }, [])
+
   return (
     <>
       <MenuOption
@@ -105,6 +113,12 @@ const CodeEditor = () => {
         handleRoomCodeSave={handleRoomCodeSave}
       />
       <EditorComponent value={value} setValue={setValue} />
+      <Toaster
+        closeButton
+        position="bottom-left"
+        visibleToasts={3}
+        duration={20000}
+      />
     </>
   )
 }

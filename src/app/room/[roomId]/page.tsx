@@ -109,12 +109,6 @@ const Room = () => {
   return (
     <EditorConfigProvider>
       <div className="flex flex-row h-screen overflow-hidden">
-        <Toaster
-          position="top-right"
-          visibleToasts={3}
-          closeButton
-          richColors
-        />
         <ResizableContainer>
           <CodeEditor />
         </ResizableContainer>
