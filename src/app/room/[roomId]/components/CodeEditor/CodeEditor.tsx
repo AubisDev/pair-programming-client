@@ -23,7 +23,7 @@ const CodeEditor = () => {
   const [customInput, setCustomInput] = useState('')
 
   const [processing, setProcessing] = useState(false)
-  const {roomCode, language, setOutputDetails} = useContext(
+  const {roomCode, language, setOutputDetails, setRoomCode} = useContext(
     EditorContext,
   ) as EditorConfigContextType
   const [value, setValue] = useState<string | undefined>(
@@ -32,6 +32,7 @@ const CodeEditor = () => {
   const params = useParams()
   const enterPress = useKeyPress('Enter')
   const ctrlPress = useKeyPress('Control')
+  const sPress = useKeyPress('s')
 
   useEffect(() => {
     if (enterPress && ctrlPress) {
@@ -39,7 +40,11 @@ const CodeEditor = () => {
       console.log('ctrlPress', ctrlPress)
       handleCompile()
     }
-  }, [ctrlPress, enterPress])
+
+    if (ctrlPress && sPress) {
+      handleRoomCodeSave()
+    }
+  }, [ctrlPress, enterPress, sPress])
 
   const handleRoomCodeSave = () => {
     socket.emit('update-editor', {
@@ -90,7 +95,7 @@ const CodeEditor = () => {
   }
   useEffect(() => {
     socket.on('client-editor', newEditorContent => {
-      setValue(newEditorContent)
+      setRoomCode(newEditorContent)
     })
   }, [])
   return (
