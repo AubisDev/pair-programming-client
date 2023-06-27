@@ -46,8 +46,9 @@ const ConsoleOutput = ({editorContent}: Props) => {
     }
   }
   return (
-    <div className="w-full h-full bg-gray-900 min-h-[300px] max-h-[90%] text-xs font-console p-4 overflow-y-scroll">
-      <h4>Output</h4>
+    <div className="w-full h-full p-4 overflow-y-scroll text-xs bg-gray-900 font-console ">
+      <h4 className="text-base ">Console Output</h4>
+      <div className="my-1 divider"></div>
       <div>{runOutput}</div>
       {outputDetails ? <>{getOutput()}</> : null}
     </div>

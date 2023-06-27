@@ -8,7 +8,7 @@ interface Props {
 
 const Tabs = ({currentSection, setCurrentSection}: Props) => {
   return (
-    <nav className="tabs tabs-boxed h-auto rounded-t-lg rounded-b-none ">
+    <nav className="h-auto rounded-t-lg rounded-b-none tabs tabs-boxed">
       {[
         TabSection.note,
         TabSection.console,

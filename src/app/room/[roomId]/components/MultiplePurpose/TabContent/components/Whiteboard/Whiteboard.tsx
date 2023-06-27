@@ -12,14 +12,14 @@ const Whiteboard = () => {
   }
 
   return (
-    <div className="w-full max-h-[90%] h-[90%] p-2 ">
+    <div className="w-full h-full max-h-full p-2 x ">
       <ReactPainter
         width={1000}
         height={1000}
         onSave={blob => console.log(blob)}
         render={({canvas, setColor, setLineWidth, setLineJoin, setLineCap}) => (
-          <div className="w-full h-full flex flex-row justify-evenly overflow-hidden ">
-            <div className="flex flex-col h-full justify-center px-2 items-center gap-y-2 ">
+          <div className="flex flex-row w-full h-full overflow-hidden justify-evenly ">
+            <div className="flex flex-col items-center justify-center h-full px-2 gap-y-2 ">
               <div className="flex flex-row items-center">
                 <label className="label">
                   <span className="label-text">Line Width</span>
@@ -30,7 +30,7 @@ const Whiteboard = () => {
                   min={1}
                   max={6}
                   defaultValue={3}
-                  className="input input-primary input-bordered input-sm w-auto "
+                  className="w-16 input input-primary input-bordered input-sm "
                 />
               </div>
 
@@ -41,7 +41,7 @@ const Whiteboard = () => {
                 <input
                   type="color"
                   onChange={e => setColor(e.target.value)}
-                  className="input input-bordered input-sm w-12 h-7  outline-none border-none bg-transparent "
+                  className="w-12 bg-transparent border-none outline-none input input-bordered input-sm h-7 "
                 />
               </div>
 
@@ -50,7 +50,7 @@ const Whiteboard = () => {
                   <span className="label-text">Line cap</span>
                 </label>
                 <select
-                  className="select select-secondary w-auto select-sm"
+                  className="w-auto select select-secondary select-sm"
                   onChange={e => setLineCap(e.target.value as LineCapType)}
                 >
                   <option value="round">round</option>
@@ -60,10 +60,10 @@ const Whiteboard = () => {
               </div>
               <div className="flex flex-row items-center">
                 <label className="label">
-                  <span className="label-text">Line Join</span>
+                  <span className="text-sm label-text">Line Join</span>
                 </label>
                 <select
-                  className="select select-secondary w-auto select-sm"
+                  className="w-auto select select-secondary select-sm"
                   onChange={e => setLineJoin(e.target.value as LineJoinType)}
                 >
                   <option value="round">round</option>
@@ -73,7 +73,7 @@ const Whiteboard = () => {
               </div>
               <button
                 onClick={handleReset}
-                className="flex flex-row items-center btn btn-sm text-white"
+                className="flex flex-row items-center text-white btn btn-sm"
               >
                 Reset <ResetIcon />
               </button>

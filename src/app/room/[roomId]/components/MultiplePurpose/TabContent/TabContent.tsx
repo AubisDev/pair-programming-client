@@ -8,7 +8,7 @@ interface Props {
 
 const TabContent = ({currentSection, editorContent}: Props) => {
   return (
-    <>
+    <div className="h-[90%] w-full overflow-hidden">
       {currentSection === TabSection.note ? (
         <Note></Note>
       ) : currentSection === TabSection.console ? (
@@ -18,7 +18,7 @@ const TabContent = ({currentSection, editorContent}: Props) => {
       ) : (
         <Testing />
       )}
-    </>
+    </div>
   )
 }
 export default TabContent
