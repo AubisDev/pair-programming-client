@@ -5,9 +5,13 @@ import {
   createContext,
   useState,
 } from 'react'
-import {Language} from '../components/MenuOptions/components/Dropdrown/utils/options'
-import {languageOptions} from '../utils/constants'
-import {Theme, defineTheme, monacoThemes} from '../lib/defineTheme'
+import {languageOptions} from '../../../utils/constants'
+import {
+  Theme,
+  defineTheme,
+  monacoThemes,
+} from '../components/CodeEditor/lib/defineTheme'
+import {Language} from '../models'
 
 export interface EditorConfigContextType {
   theme: Theme<string> | string

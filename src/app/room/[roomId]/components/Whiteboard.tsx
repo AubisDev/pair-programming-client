@@ -1,6 +1,6 @@
 import {ReactPainter} from 'react-painter'
 
-const Whiteboad = () => {
+export const Whiteboad = () => {
   return (
     <div className="bg-white h-1/2">
       <ReactPainter

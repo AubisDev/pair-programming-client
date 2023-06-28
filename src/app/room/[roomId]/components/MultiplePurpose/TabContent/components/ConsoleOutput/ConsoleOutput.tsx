@@ -2,7 +2,7 @@ import {useContext} from 'react'
 import {
   EditorContext,
   EditorConfigContextType,
-} from '../../../../CodeEditor/context/editorContext'
+} from '../../../../../context/editorContext'
 
 interface Props {
   editorContent: string | undefined

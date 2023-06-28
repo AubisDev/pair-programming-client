@@ -1,7 +1,7 @@
 import {Resizable} from 're-resizable'
 import {PropsWithChildren} from 'react'
 
-const ResizableContainer = ({children}: PropsWithChildren) => {
+export const ResizableContainer = ({children}: PropsWithChildren) => {
   return (
     <Resizable
       minWidth="600px"

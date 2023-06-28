@@ -2,7 +2,7 @@ import {useContext} from 'react'
 import {
   EditorContext,
   EditorConfigContextType,
-} from '../../context/editorContext'
+} from '../../../../context/editorContext'
 import Button from './components/Buttons/Button'
 import Settings from './components/Settings/Settings'
 import html2canvas from 'html2canvas'

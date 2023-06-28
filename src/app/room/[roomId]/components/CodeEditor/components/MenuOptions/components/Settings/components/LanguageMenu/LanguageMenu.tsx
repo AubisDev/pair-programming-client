@@ -1,7 +1,7 @@
 import {
   EditorContext,
   EditorConfigContextType,
-} from '@/app/room/[roomId]/components/CodeEditor/context/editorContext'
+} from '@/app/room/[roomId]/context/editorContext'
 import {useContext} from 'react'
 
 const LanguageMenu = () => {

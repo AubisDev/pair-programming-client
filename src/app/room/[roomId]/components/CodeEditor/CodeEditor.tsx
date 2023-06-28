@@ -1,6 +1,9 @@
 'use client'
 import {useContext, useEffect, useState} from 'react'
-import {EditorConfigContextType, EditorContext} from './context/editorContext'
+import {
+  EditorConfigContextType,
+  EditorContext,
+} from '../../context/editorContext'
 import EditorComponent from './EditorComponent'
 import useKeyPress from './hooks/useKeyPress'
 import MenuOption from './components/MenuOptions/MenuOption'
@@ -18,7 +21,7 @@ import {Toaster} from 'sonner'
 
 const defaultValue = '// Your code here!'
 
-const CodeEditor = () => {
+export const CodeEditor = () => {
   const {showSuccessToast, showErrorToast} = useToast()
   const [customInput, setCustomInput] = useState('')
 

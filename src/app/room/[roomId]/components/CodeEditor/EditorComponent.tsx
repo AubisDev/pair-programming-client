@@ -1,6 +1,9 @@
 import {Dispatch, SetStateAction, useContext, useState} from 'react'
 import EditorLoader from '../EditorLoader'
-import {EditorContext, EditorConfigContextType} from './context/editorContext'
+import {
+  EditorContext,
+  EditorConfigContextType,
+} from '../../context/editorContext'
 import Editor from '@monaco-editor/react'
 
 interface Props {
@@ -8,7 +11,7 @@ interface Props {
   setValue: Dispatch<SetStateAction<string | undefined>>
 }
 
-const EditorComponent = ({value, setValue}: Props) => {
+export const EditorComponent = ({value, setValue}: Props) => {
   const {language, theme, roomCode} = useContext(
     EditorContext,
   ) as EditorConfigContextType

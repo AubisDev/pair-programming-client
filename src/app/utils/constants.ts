@@ -1,4 +1,6 @@
-export const languageOptions = [
+import {Language} from '../room/[roomId]/models'
+
+export const languageOptions: Language[] = [
   {
     id: 63,
     name: 'JavaScript (Node.js 12.14.0)',
