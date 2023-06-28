@@ -5,7 +5,7 @@ import {
 import {useContext} from 'react'
 
 const LanguageMenu = () => {
-  const {languageOptions, language, setLanguage} = useContext(
+  const {language, languageOptions, setLanguage} = useContext(
     EditorContext,
   ) as EditorConfigContextType
 

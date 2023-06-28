@@ -1,0 +1,5 @@
+export {default as Button} from './Buttons/Button'
+export {default as Settings} from './Settings/Settings'
+export {default as GearIcon} from './svg/GearIcon'
+export {default as PlayIcon} from './svg/PlayIcon'
+export {default as ShareIcon} from './svg/ShareIcon'

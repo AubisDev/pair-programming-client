@@ -1,16 +1,11 @@
 import axios from 'axios'
-
-type CompileFormData = {
-  language_id: number
-  source_code: string
-  stdin: string
-}
+import {CompileFormData} from '../model'
 
 export function createFormData(
   language_id: number,
   source_code: string,
   stdin: string,
-) {
+): CompileFormData {
   return {
     language_id,
     // encode source code in base64

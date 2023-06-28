@@ -5,13 +5,11 @@ import {
   createContext,
   useState,
 } from 'react'
-import {languageOptions} from '../../../utils/constants'
-import {
-  Theme,
-  defineTheme,
-  monacoThemes,
-} from '../components/CodeEditor/lib/defineTheme'
+import {languageOptions} from '../../../utils'
+import {defineTheme} from '../components/CodeEditor/lib'
 import {Language} from '../models'
+import {Theme} from '../components/CodeEditor/model'
+import {monacoThemes} from '../components/CodeEditor/utils'
 
 export interface EditorConfigContextType {
   theme: Theme<string> | string

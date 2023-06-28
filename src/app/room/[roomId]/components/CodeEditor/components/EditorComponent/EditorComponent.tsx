@@ -1,9 +1,9 @@
-import {Dispatch, SetStateAction, useContext, useState} from 'react'
-import EditorLoader from '../EditorLoader'
+import {Dispatch, SetStateAction, useContext} from 'react'
+import {EditorLoader} from './components'
 import {
   EditorContext,
   EditorConfigContextType,
-} from '../../context/editorContext'
+} from '../../../../context/editorContext'
 import Editor from '@monaco-editor/react'
 
 interface Props {

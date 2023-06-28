@@ -1,7 +1,4 @@
-export type Status = {
-  id: number
-  description: string
-}
+import {Status} from '../model'
 
 export const statuses: Status[] = [
   {

@@ -4,10 +4,8 @@ import {
   EditorConfigContextType,
   EditorContext,
 } from '../../context/editorContext'
-import EditorComponent from './EditorComponent'
-import useKeyPress from './hooks/useKeyPress'
-import MenuOption from './components/MenuOptions/MenuOption'
-import {socket} from '@/app/utils/socket'
+import {EditorComponent, MenuOption} from './components'
+import {socket} from '@/app/utils'
 import {useParams} from 'next/navigation'
 import {
   createFormData,
@@ -15,8 +13,8 @@ import {
   getCompileToken,
 } from './utils/commons'
 import axios from 'axios'
-import {getStatusHeaderOptions} from './utils/status'
-import {useToast} from './hooks/useToastify'
+import {getStatusHeaderOptions} from './utils'
+import {useToast, useKeyPress} from './hooks'
 import {Toaster} from 'sonner'
 
 const defaultValue = '// Your code here!'
@@ -111,10 +109,7 @@ export const CodeEditor = () => {
 
   return (
     <>
-      <MenuOption
-        handleCompile={handleCompile}
-        handleRoomCodeSave={handleRoomCodeSave}
-      />
+      <MenuOption handleCompile={handleCompile} />
       <EditorComponent value={value} setValue={setValue} />
       <Toaster
         closeButton

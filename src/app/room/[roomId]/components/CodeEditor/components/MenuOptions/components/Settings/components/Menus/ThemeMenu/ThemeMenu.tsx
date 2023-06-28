@@ -2,11 +2,11 @@ import {
   EditorContext,
   EditorConfigContextType,
 } from '@/app/room/[roomId]/context/editorContext'
-import {Theme} from '@/app/room/[roomId]/components/CodeEditor/lib/defineTheme'
 import {useContext} from 'react'
+import {Theme} from '@/app/room/[roomId]/components/CodeEditor/model'
 
 const ThemeMenu = () => {
-  const {monacoThemes, theme, handleThemeChange} = useContext(
+  const {theme, monacoThemes, handleThemeChange} = useContext(
     EditorContext,
   ) as EditorConfigContextType
 
@@ -19,12 +19,12 @@ const ThemeMenu = () => {
         </span>
       </summary>
       <ul className="h-[200px] overflow-y-scroll border-l border-gray-300/30 ml-1">
-        {Object.values(monacoThemes).map((themeOption, i) => (
+        {Object.values(monacoThemes).map((themeOption: any, index) => (
           <li
             key={themeOption}
             onClick={() =>
               handleThemeChange(
-                Object.keys(monacoThemes)[i] as Theme<string> & string,
+                Object.keys(monacoThemes)[index] as Theme<string> & string,
               )
             }
           >

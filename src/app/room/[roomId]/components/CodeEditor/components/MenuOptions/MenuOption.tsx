@@ -3,16 +3,14 @@ import {
   EditorContext,
   EditorConfigContextType,
 } from '../../../../context/editorContext'
-import Button from './components/Buttons/Button'
-import Settings from './components/Settings/Settings'
+import {Button, Settings} from './components'
 import html2canvas from 'html2canvas'
 
 interface Props {
   handleCompile: () => void
-  handleRoomCodeSave: () => void
 }
 
-const MenuOption = ({handleCompile, handleRoomCodeSave}: Props) => {
+const MenuOption = ({handleCompile}: Props) => {
   const {language} = useContext(EditorContext) as EditorConfigContextType
 
   const handleClick = async () => {
@@ -35,9 +33,8 @@ const MenuOption = ({handleCompile, handleRoomCodeSave}: Props) => {
         Pair Programming
       </h6>
       <div className="flex flex-row items-center gap-x-2">
-        <p className="text-sm">Current: [{language.name}]</p>
+        <p className="text-sm">Current: {language.name}</p>
         <Settings />
-        {/* <Button label="Share" action={handleRoomCodeSave} /> */}
         <Button label="Share" action={handleClick} />
         <Button label="Run" action={handleCompile} />
       </div>

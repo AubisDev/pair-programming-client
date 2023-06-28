@@ -1,9 +1,8 @@
 import {useState} from 'react'
-import GearIcon from '../svg/GearIcon'
-import LanguageMenu from './components/LanguageMenu/LanguageMenu'
-import ThemeMenu from './components/ThemeMenu/ThemeMenu'
+import {GearIcon} from '../svg'
+import {Menus} from './components'
 
-const Settings = () => {
+export const Settings = () => {
   const [openSetting, setOpenSetting] = useState(false)
 
   return (
@@ -11,16 +10,7 @@ const Settings = () => {
       <span onClick={() => setOpenSetting(!openSetting)}>
         <GearIcon />
       </span>
-      {openSetting ? (
-        <ul className="absolute right-0 z-50 text-sm border rounded-md min-w-56 menu bg-blue-950 border-gray-300/20">
-          <details open={false}>
-            <LanguageMenu />
-          </details>
-          <details open={false}>
-            <ThemeMenu />
-          </details>
-        </ul>
-      ) : null}
+      {openSetting ? <Menus /> : null}
     </div>
   )
 }
