@@ -1,32 +1,16 @@
 import {Message} from '@/app/room/[roomId]/models'
 import {userStore} from '@/app/store'
-import {socket} from '@/app/utils'
-import {useParams} from 'next/navigation'
-import {ChangeEvent, FormEvent, useEffect, useState} from 'react'
-import {setMessageInitialState} from './utils'
+import {ChangeEvent, Dispatch, FormEvent, SetStateAction} from 'react'
 
-export const NewMessageForm = () => {
+interface Props {
+  message: Message
+  setMessage: Dispatch<SetStateAction<Message>>
+  sendMessage: (e: FormEvent<HTMLFormElement>) => void
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void
+}
+
+export const NewMessageForm = ({sendMessage, message, handleChange}: Props) => {
   const username = userStore(state => state.username)
-  const params = useParams()
-  const [message, setMessage] = useState<Message>(
-    setMessageInitialState(username),
-  )
-
-  useEffect(() => {
-    socket.emit('join-room', {username: message.username, room: params.roomId})
-  }, [])
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    let prevState = {...message}
-    prevState.text = e.target.value
-    setMessage(prevState)
-  }
-
-  const sendMessage = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    socket.emit('send-message', message.text)
-    setMessage(setMessageInitialState(username))
-  }
 
   return (
     <form

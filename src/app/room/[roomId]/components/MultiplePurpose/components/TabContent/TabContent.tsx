@@ -1,4 +1,4 @@
-import {TabSection} from '../../MultiplePurpose'
+import {TabSection} from '../../models'
 import {Note, ConsoleOutput, Whiteboard, Testing} from './components'
 
 interface Props {

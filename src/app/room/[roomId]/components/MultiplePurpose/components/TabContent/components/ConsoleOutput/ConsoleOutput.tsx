@@ -1,8 +1,6 @@
+import { EditorConfigContextType, EditorContext } from '@/app/room/[roomId]/context/editorContext'
 import {useContext} from 'react'
-import {
-  EditorContext,
-  EditorConfigContextType,
-} from '../../../../../context/editorContext'
+
 
 interface Props {
   editorContent: string | undefined
