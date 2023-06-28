@@ -6,7 +6,7 @@ interface Props {
   modifier: Dispatch<SetStateAction<any>>
 }
 
-const Input = ({label, value, modifier}: Props) => {
+export const Input = ({label, value, modifier}: Props) => {
   return (
     <input
       type="text"

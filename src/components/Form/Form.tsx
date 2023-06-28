@@ -1,11 +1,11 @@
 import {Dispatch, SetStateAction, useState} from 'react'
-import Input from './Input/Input'
 import Label from './Label/Label'
 import {userStore} from '@/app/store/store'
-import {modalInitialState} from '@/app/page'
-import Button from '../ActionsButtons/Button/Button'
+import {Button} from '../ActionsButtons'
 import {useRouter} from 'next/navigation'
 import {socket} from '@/app/utils/socket'
+import {modalInitialState} from '@/constants'
+import {Input} from './Input'
 
 interface Props {
   openModal: {
@@ -47,7 +47,6 @@ const Form = ({openModal, setLoading, setOpenModal}: Props) => {
     <form
       id="modal"
       className=" z-[100] w-[500px] h-[250px] border-purple-600 border-2 duration-300 bg-gradient-to-r from-gray-900 to-purple-950   flex  rounded-lg items-center flex-col relative"
-      // onSubmit={e => handleJoinRoom(roomToJoin)}
     >
       <div className="flex flex-col items-center justify-center w-full max-w-xs h-3/4 form-control">
         <div className="flex flex-col gap-2">
