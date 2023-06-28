@@ -1,12 +1,12 @@
 import {Dispatch, SetStateAction} from 'react'
-import {TabSection} from '../MultiplePurpose'
+import {TabSection} from '../../models'
 
 interface Props {
   currentSection: TabSection
   setCurrentSection: Dispatch<SetStateAction<TabSection>>
 }
 
-const Tabs = ({currentSection, setCurrentSection}: Props) => {
+export const Tabs = ({currentSection, setCurrentSection}: Props) => {
   return (
     <nav className="h-auto rounded-t-lg rounded-b-none tabs tabs-boxed">
       {[

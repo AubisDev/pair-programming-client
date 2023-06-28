@@ -1,4 +1,4 @@
-import {TabSection} from '../MultiplePurpose'
+import {TabSection} from '../../MultiplePurpose'
 import {Note, ConsoleOutput, Whiteboard, Testing} from './components'
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
   editorContent: string | undefined
 }
 
-const TabContent = ({currentSection, editorContent}: Props) => {
+export const TabContent = ({currentSection, editorContent}: Props) => {
   return (
     <div className="h-[90%] w-full overflow-hidden">
       {currentSection === TabSection.note ? (

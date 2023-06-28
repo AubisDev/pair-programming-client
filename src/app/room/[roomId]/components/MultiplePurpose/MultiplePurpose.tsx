@@ -1,14 +1,6 @@
 import {useState} from 'react'
-import Layout from './Layout/Layout'
-import Tabs from './Tabs/Tabs'
-import TabContent from './TabContent/TabContent'
-
-export enum TabSection {
-  note,
-  console,
-  whiteboard,
-  testing,
-}
+import {Layout, Tabs, TabContent} from './components'
+import {TabSection} from './models'
 
 interface Props {
   editorContent: string | undefined
