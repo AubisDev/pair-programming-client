@@ -1,10 +1,5 @@
-import {Dispatch, MouseEvent, ReactNode, SetStateAction, useState} from 'react'
-import io from 'socket.io-client'
-import Form from './Form/Form'
-import Loader from '@/app/room/[roomId]/components/EditorLoader'
-import {modalInitialState} from '@/app/page'
-
-const socket = io('http://localhost:4000')
+import {modalInitialState} from '@/constants'
+import {Dispatch, MouseEvent, SetStateAction} from 'react'
 
 interface ModalProps {
   setOpenModal: Dispatch<
@@ -14,16 +9,10 @@ interface ModalProps {
       joinRoom: boolean
     }>
   >
-
-  openModal: {
-    open: boolean
-    newRoom: boolean
-    joinRoom: boolean
-  }
   children: React.ReactNode
 }
 
-const Modal = ({setOpenModal, children, openModal}: ModalProps) => {
+export const Modal = ({setOpenModal, children}: ModalProps) => {
   const handleCloseModal = (
     event: MouseEvent<HTMLDivElement, globalThis.MouseEvent>,
   ) => {

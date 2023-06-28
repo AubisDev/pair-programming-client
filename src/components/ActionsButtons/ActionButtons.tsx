@@ -16,7 +16,7 @@ interface Props {
   }
 }
 
-const ActionButtons = ({setOpenModal, openModal}: Props) => {
+export const ActionButtons = ({setOpenModal, openModal}: Props) => {
   const handleCreateRoomClick = () => {
     const openNewRoomModal = {
       ...openModal,

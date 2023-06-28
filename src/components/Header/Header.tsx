@@ -1,4 +1,4 @@
-const Header = () => {
+export const Header = () => {
   return (
     <>
       <h1 className="text-5xl font-bold text-gray-100">

@@ -1,31 +1,20 @@
 'use client'
-import Modal from '@/components/Modal'
+import {Modal, ActionButtons, Loader, Form, Header} from '@/components'
+import {modalInitialState} from '@/constants'
+import {useToggle} from '@/hooks'
 import {useState} from 'react'
-
-import Header from '@/components/Header/Header'
-import ActionButtons from '@/components/ActionsButtons/ActionButtons'
-import Loader from '@/components/Loader/Loader'
-import Form from '@/components/Form/Form'
-
-export const modalInitialState = {
-  open: false,
-  newRoom: false,
-  joinRoom: false,
-}
 
 export const Home = () => {
   const [openModal, setOpenModal] = useState(modalInitialState)
-  const [loading, setLoading] = useState(false)
+  const {on: loading, toggleState} = useToggle(false)
 
   return (
     <main className="flex flex-col items-center justify-center h-screen min-h-screen overflow-hidden text-gray-200 bg-gradient-to-b from-slate-900 via-purple-900 to-slate-900">
       <div className="relative flex flex-col items-center justify-center w-full h-full bg-black/50">
         <Header />
-        <div className="flex flex-row">
-          <ActionButtons setOpenModal={setOpenModal} openModal={openModal} />
-        </div>
+        <ActionButtons setOpenModal={setOpenModal} openModal={openModal} />
         {openModal.open ? (
-          <Modal setOpenModal={setOpenModal} openModal={openModal}>
+          <Modal setOpenModal={setOpenModal}>
             {loading ? (
               <Loader
                 loadingReason={`${
@@ -35,7 +24,7 @@ export const Home = () => {
             ) : (
               <Form
                 openModal={openModal}
-                setLoading={setLoading}
+                setLoading={toggleState}
                 setOpenModal={setOpenModal}
               />
             )}
