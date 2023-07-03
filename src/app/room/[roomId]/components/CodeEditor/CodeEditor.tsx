@@ -115,7 +115,7 @@ export const CodeEditor = () => {
         closeButton
         position="bottom-left"
         visibleToasts={3}
-        duration={20000}
+        duration={200000}
       />
     </>
   )

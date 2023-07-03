@@ -11,6 +11,7 @@ export const useToast = () => {
   const showTipMessage = (msg: string) => {
     return toast('Remember', {
       description: msg,
+      style: {background: 'rgba(17,24,39,0.5)', color: 'white'},
     })
   }
 

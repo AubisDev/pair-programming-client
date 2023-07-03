@@ -62,7 +62,7 @@ const Room = () => {
     })
 
     //Message from server
-    socket.on('message', (message: Message) => {
+    socket.on('message', ({message: Message}) => {
       setMessages(prevMessages => [...prevMessages, message])
     })
     // user enters the  room
@@ -80,7 +80,7 @@ const Room = () => {
 
   const sendMessage = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    socket.emit('send-message', message.text)
+    socket.emit('send-message', {message: message.text, roomId: params.roomId})
     setMessage(setMessageInitialState(username))
   }
 
