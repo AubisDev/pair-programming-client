@@ -7,7 +7,7 @@ interface Props {
 
 const Messages = ({messages}: Props) => {
   return (
-    <div className="w-full h-[84%]  overflow-y-scroll" id="chat-messages">
+    <div className="w-full h-[80%]  overflow-y-scroll " id="chat-messages">
       {messages.map((chatMessage: Message) => (
         <div
           key={uuidv4()}

@@ -6,10 +6,10 @@ import {
   MultiplePurpose,
   ResizableContainer,
 } from './components'
-import {useParams} from 'next/navigation'
+import {useParams, useRouter} from 'next/navigation'
 import {User} from '@/models'
 import {userStore, editorStore} from '@/app/store'
-import {socket, moveToLastMessage, randomID} from '@/app/utils'
+import {socket, moveToLastMessage} from '@/app/utils'
 import EditorConfigProvider from './context/editorContext'
 import {Message} from './models'
 import {setMessageInitialState} from './utils'
@@ -19,11 +19,13 @@ const Room = () => {
   const content = editorStore(state => state.editorContent)
   const [editorContent, setEditorContent] = useState(content)
   const username = userStore(state => state.username)
+  const setUsername = userStore(state => state.setUsername)
   const [message, setMessage] = useState<Message>(
     setMessageInitialState(username),
   )
   const [messages, setMessages] = useState<Message[]>([])
   const params = useParams()
+  const route = useRouter()
 
   useEffect(() => {
     moveToLastMessage()
@@ -42,10 +44,16 @@ const Room = () => {
   }, [editorContent, params.roomId])
 
   useEffect(() => {
+    if (username.length < 2) {
+      alert(
+        "You don't have an username please, user join button and set an username",
+      )
+      route.push('/', {replace: true})
+    }
     //join chatroom
-    socket.emit('join-room', {username: message.username, room: params.roomId})
+    socket.emit('join-room', {username, room: params.roomId})
     //get room and users
-    socket.on('room-users', ({room, users}) => {
+    socket.on('room-users', ({users}) => {
       setUsers(users)
       console.log(users)
     })
@@ -62,8 +70,9 @@ const Room = () => {
     })
 
     //Message from server
-    socket.on('message', ({message: Message}) => {
-      setMessages(prevMessages => [...prevMessages, message])
+    socket.on('new-message', newMessage => {
+      console.log('nuevo mensaje' + newMessage)
+      setMessages(prevMessages => [...prevMessages, newMessage])
     })
     // user enters the  room
     socket.on('connected', user => {
@@ -80,7 +89,7 @@ const Room = () => {
 
   const sendMessage = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    socket.emit('send-message', {message: message.text, roomId: params.roomId})
+    socket.emit('chat-message', message.text)
     setMessage(setMessageInitialState(username))
   }
 

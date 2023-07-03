@@ -15,7 +15,7 @@ export const NewMessageForm = ({sendMessage, message, handleChange}: Props) => {
   return (
     <form
       onSubmit={e => sendMessage(e)}
-      className="w-full h-[10%] flex items-center flex-row gap-x-2 "
+      className="w-full h-[12%] flex items-center flex-row gap-x-2  "
     >
       <input
         type="text"

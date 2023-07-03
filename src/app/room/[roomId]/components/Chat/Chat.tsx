@@ -20,7 +20,7 @@ export const Chat = ({
   handleChange,
 }: Props) => {
   return (
-    <div className="w-full p-2 px-2 overflow-hidden h-1/2">
+    <div className="w-full p-2 overflow-hidden h-1/2 ">
       <Title />
       <Messages messages={messages} />
       <NewMessageForm
