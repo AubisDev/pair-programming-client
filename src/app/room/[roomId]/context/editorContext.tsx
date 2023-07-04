@@ -25,6 +25,8 @@ export interface EditorConfigContextType {
   setRunOutput: Dispatch<SetStateAction<string>>
   outputDetails: any
   setOutputDetails: Dispatch<SetStateAction<any>>
+  processing: boolean
+  setProcessing: Dispatch<SetStateAction<boolean>>
 }
 
 export const EditorContext = createContext<EditorConfigContextType | null>(null)
@@ -35,6 +37,7 @@ const EditorConfigProvider = ({children}: PropsWithChildren) => {
   const [roomCode, setRoomCode] = useState<string | undefined>('')
   const [runOutput, setRunOutput] = useState<string>('')
   const [outputDetails, setOutputDetails] = useState<any>('')
+  const [processing, setProcessing] = useState(false)
 
   const handleThemeChange = (newTheme: string) => {
     if (['light', 'vs-dark'].includes(newTheme)) {
@@ -60,6 +63,8 @@ const EditorConfigProvider = ({children}: PropsWithChildren) => {
         setRunOutput,
         outputDetails,
         setOutputDetails,
+        processing,
+        setProcessing,
       }}
     >
       {children}

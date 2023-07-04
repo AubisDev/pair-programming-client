@@ -22,11 +22,8 @@ const defaultValue = '// Your code here!'
 export const CodeEditor = () => {
   const {showSuccessToast, showErrorToast} = useToast()
   const [customInput, setCustomInput] = useState('')
-
-  const [processing, setProcessing] = useState(false)
-  const {roomCode, language, setOutputDetails, setRoomCode} = useContext(
-    EditorContext,
-  ) as EditorConfigContextType
+  const {roomCode, language, setOutputDetails, setRoomCode, setProcessing} =
+    useContext(EditorContext) as EditorConfigContextType
   const [value, setValue] = useState<string | undefined>(
     roomCode || defaultValue,
   )
@@ -56,7 +53,7 @@ export const CodeEditor = () => {
   }
 
   const handleCompile = async () => {
-    setProcessing(true)
+    socket.emit('compiling', params.roomId)
     const formData = createFormData(
       language.id,
       btoa(roomCode as string),
@@ -65,7 +62,7 @@ export const CodeEditor = () => {
     const options = compileHeaderOptions(formData)
     const token = await getCompileToken(options)
     if (token === false) {
-      setProcessing(false)
+      socket.emit('compiled', params.roomId)
       return
     }
     checkStatus(token)
@@ -85,8 +82,8 @@ export const CodeEditor = () => {
         }, 2000)
         return
       } else {
-        setProcessing(false)
-        setOutputDetails(response.data)
+        socket.emit('compiled', params.roomId)
+        socket.emit('console', {output: response.data, room: params.roomId})
         showSuccessToast(`Compiled Successfully!`)
         return
       }
@@ -98,6 +95,18 @@ export const CodeEditor = () => {
   useEffect(() => {
     socket.on('client-editor', newEditorContent => {
       setRoomCode(newEditorContent)
+    })
+
+    socket.on('client-console', output => {
+      setOutputDetails(output)
+    })
+
+    socket.on('client-compiling', () => {
+      setProcessing(true)
+    })
+
+    socket.on('client-compiled', () => {
+      setProcessing(false)
     })
   }, [])
 

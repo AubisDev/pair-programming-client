@@ -1,13 +1,12 @@
-import { EditorConfigContextType, EditorContext } from '@/app/room/[roomId]/context/editorContext'
+import {
+  EditorConfigContextType,
+  EditorContext,
+} from '@/app/room/[roomId]/context/editorContext'
 import {useContext} from 'react'
+import Loader from './Loader'
 
-
-interface Props {
-  editorContent: string | undefined
-}
-
-const ConsoleOutput = ({editorContent}: Props) => {
-  const {runOutput, outputDetails} = useContext(
+const ConsoleOutput = () => {
+  const {runOutput, outputDetails, processing} = useContext(
     EditorContext,
   ) as EditorConfigContextType
 
@@ -42,14 +41,16 @@ const ConsoleOutput = ({editorContent}: Props) => {
         </pre>
       )
     }
-    return ''
   }
   return (
     <div className="w-full h-full p-4 overflow-y-scroll text-xs bg-gray-900 font-console ">
       <h4 className="text-base ">Output:</h4>
       <div className="my-1 divider"></div>
-      <div>{runOutput}</div>
-      {outputDetails ? <>{getOutput()}</> : null}
+      {processing ? (
+        <Loader />
+      ) : (
+        <>{outputDetails ? <>{getOutput()}</> : null}</>
+      )}
     </div>
   )
 }

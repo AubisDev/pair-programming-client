@@ -12,7 +12,7 @@ export const TabContent = ({currentSection, editorContent}: Props) => {
       {currentSection === TabSection.note ? (
         <Note></Note>
       ) : currentSection === TabSection.console ? (
-        <ConsoleOutput editorContent={editorContent} />
+        <ConsoleOutput />
       ) : currentSection === TabSection.whiteboard ? (
         <Whiteboard />
       ) : (

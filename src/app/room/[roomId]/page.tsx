@@ -106,7 +106,9 @@ const Room = () => {
           <CodeEditor />
         </ResizableContainer>
         <div className="flex flex-col w-full h-full min-w-[400px] overflow-hidden">
-          <MultiplePurpose editorContent={editorContent} />
+          <MultiplePurpose
+            editorContent={editorContent}
+          />
           <Chat
             messages={messages}
             message={message}

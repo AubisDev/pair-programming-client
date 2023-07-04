@@ -10,12 +10,10 @@ interface Props {
 }
 
 export const NewMessageForm = ({sendMessage, message, handleChange}: Props) => {
-  const username = userStore(state => state.username)
-
   return (
     <form
       onSubmit={e => sendMessage(e)}
-      className="w-full h-[12%] flex items-center flex-row gap-x-2  "
+      className="w-full h-[12%] flex items-center mt-1 flex-row gap-x-2  "
     >
       <input
         type="text"
