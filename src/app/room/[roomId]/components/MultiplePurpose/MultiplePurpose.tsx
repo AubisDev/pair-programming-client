@@ -16,10 +16,7 @@ const MultiplePurpose = ({editorContent}: Props) => {
         currentSection={currentSection}
         setCurrentSection={setCurrentSection}
       />
-      <TabContent
-        currentSection={currentSection}
-        editorContent={editorContent}
-      />
+      <TabContent currentSection={currentSection} />
     </Layout>
   )
 }

@@ -13,8 +13,9 @@ import {socket, moveToLastMessage} from '@/app/utils'
 import EditorConfigProvider from './context/editorContext'
 import {Message} from './models'
 import {setMessageInitialState} from './utils'
+import React from 'react'
 
-const Room = () => {
+export const Room = (): React.JSX.Element => {
   const [users, setUsers] = useState<User[]>([])
   const content = editorStore(state => state.editorContent)
   const [editorContent, setEditorContent] = useState(content)
@@ -53,7 +54,7 @@ const Room = () => {
     //join chatroom
     socket.emit('join-room', {username, room: params.roomId})
     //get room and users
-    socket.on('room-users', ({users}) => {
+    socket.on('room-users', ({users}: any): void => {
       setUsers(users)
       console.log(users)
     })
@@ -64,28 +65,28 @@ const Room = () => {
       socket.emit('userName', username)
     })
     // adding users
-    socket.on('users', users => {
+    socket.on('users', (users: any) => {
       console.log(users)
       setUsers(users)
     })
 
     //Message from server
-    socket.on('new-message', newMessage => {
+    socket.on('new-message', (newMessage: Message): void => {
       console.log('nuevo mensaje' + newMessage)
       setMessages(prevMessages => [...prevMessages, newMessage])
     })
     // user enters the  room
-    socket.on('connected', user => {
+    socket.on('connected', (user: User) => {
       console.log('connected')
       setUsers(users => [...users, user])
     })
     // Disconnected user
-    socket.on('disconnected', id => {
+    socket.on('disconnected', (id: string): void => {
       setUsers(users => {
         return users.filter(user => user.userID !== id)
       })
     })
-  }, [])
+  }, [params.roomId, route, username])
 
   const sendMessage = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -106,9 +107,7 @@ const Room = () => {
           <CodeEditor />
         </ResizableContainer>
         <div className="flex flex-col w-full h-full min-w-[400px] overflow-hidden">
-          <MultiplePurpose
-            editorContent={editorContent}
-          />
+          <MultiplePurpose editorContent={editorContent} />
           <Chat
             messages={messages}
             message={message}

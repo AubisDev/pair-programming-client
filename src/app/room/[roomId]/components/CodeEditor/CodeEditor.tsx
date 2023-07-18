@@ -93,11 +93,11 @@ export const CodeEditor = () => {
     }
   }
   useEffect(() => {
-    socket.on('client-editor', newEditorContent => {
+    socket.on('client-editor', (newEditorContent: string): void => {
       setRoomCode(newEditorContent)
     })
 
-    socket.on('client-console', output => {
+    socket.on('client-console', (output: any): void => {
       setOutputDetails(output)
     })
 
