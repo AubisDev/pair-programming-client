@@ -116,7 +116,7 @@ export const CodeEditor = (): React.JSX.Element => {
     showTipMessage(
       'Click Cltr + S to save the current for others users to see the changes',
     )
-  }, [showTipMessage])
+  }, [])
 
   return (
     <>

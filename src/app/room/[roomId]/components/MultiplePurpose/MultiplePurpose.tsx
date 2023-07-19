@@ -16,3 +16,5 @@ export const MultiplePurpose = (): React.JSX.Element => {
     </Layout>
   )
 }
+
+export default MultiplePurpose
