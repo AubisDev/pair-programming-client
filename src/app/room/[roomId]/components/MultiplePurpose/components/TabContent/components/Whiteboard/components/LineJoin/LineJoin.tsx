@@ -18,7 +18,6 @@ export const LineJoin = ({setLineJoin}: Props) => {
         <option value="bevel">bevel</option>
         <option value="miter">miter</option>
       </select>
-      L
     </div>
   )
 }
