@@ -18,7 +18,7 @@ export const Chat = ({
   setMessage,
   sendMessage,
   handleChange,
-}: Props) => {
+}: Props): React.JSX.Element => {
   return (
     <div className="w-full p-2 overflow-hidden h-1/2 ">
       <Title />
@@ -32,4 +32,3 @@ export const Chat = ({
     </div>
   )
 }
-export default Chat

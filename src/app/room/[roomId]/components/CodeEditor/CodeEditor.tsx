@@ -19,7 +19,7 @@ import {Toaster} from 'sonner'
 
 const defaultValue = '// Your code here!'
 
-export const CodeEditor = () => {
+export const CodeEditor = (): React.JSX.Element => {
   const {showSuccessToast, showErrorToast} = useToast()
   const [customInput, setCustomInput] = useState('')
   const {roomCode, language, setOutputDetails, setRoomCode, setProcessing} =
@@ -43,6 +43,7 @@ export const CodeEditor = () => {
     if (ctrlPress && sPress) {
       handleRoomCodeSave()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrlPress, enterPress, sPress])
 
   const handleRoomCodeSave = () => {
@@ -108,13 +109,14 @@ export const CodeEditor = () => {
     socket.on('client-compiled', () => {
       setProcessing(false)
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     showTipMessage(
       'Click Cltr + S to save the current for others users to see the changes',
     )
-  }, [])
+  }, [showTipMessage])
 
   return (
     <>

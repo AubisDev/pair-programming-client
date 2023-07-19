@@ -2,11 +2,7 @@ import {useState} from 'react'
 import {Layout, Tabs, TabContent} from './components'
 import {TabSection} from './models'
 
-interface Props {
-  editorContent: string | undefined
-}
-
-const MultiplePurpose = ({editorContent}: Props) => {
+export const MultiplePurpose = (): React.JSX.Element => {
   const [currentSection, setCurrentSection] = useState<TabSection>(
     TabSection.note,
   )
@@ -20,4 +16,3 @@ const MultiplePurpose = ({editorContent}: Props) => {
     </Layout>
   )
 }
-export default MultiplePurpose

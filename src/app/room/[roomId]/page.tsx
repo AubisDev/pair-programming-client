@@ -107,7 +107,7 @@ export const Room = (): React.JSX.Element => {
           <CodeEditor />
         </ResizableContainer>
         <div className="flex flex-col w-full h-full min-w-[400px] overflow-hidden">
-          <MultiplePurpose editorContent={editorContent} />
+          <MultiplePurpose />
           <Chat
             messages={messages}
             message={message}
